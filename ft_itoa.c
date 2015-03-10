@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-static char		*ft_nbr(int n, int *i)
+static char		*ft_nbr(ll n, ll *i)
 {
 	char	*s2;
-	size_t	j;
-	size_t	m;
-	size_t	save;
+	ll 		j;
+	ll		m;
+	ll		save;
 
 	save = (n < 0) ? -n : n;
 	j = save;
@@ -41,15 +41,15 @@ static char		*ft_nbr(int n, int *i)
 	return (s2);
 }
 
-char			*ft_itoa(int n)
+char			*ft_itoa(ll n)
 {
-	int		i;
-	int		k;
+	ll		i;
+	ll		k;
 	char	*s1;
 	char	*s2;
 
-	if (n == -2147483648)
-		return ("-2147483648");
+	if (n == -9223372036854775808)
+		return ("-9223372036854775808");
 	else
 	{
 		i = 0;

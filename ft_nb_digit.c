@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_nb_digit_uli(uli i, t_flags flags)
+void	ft_nb_digit_u(ull i, t_flags flags)
 {
 	int	j;
 
@@ -23,17 +23,20 @@ void	ft_nb_digit_uli(uli i, t_flags flags)
 		j++;
 	}
 	j++;
-	while (j < flags.precision)
+	while (flags.precision == 1 && j < flags.precision)
 	{
 		ft_putchar('0');
 		j++;
 	}
+	return (j);
 }
 
-void	ft_nb_digit_u(unsigned int i, t_flags flags)
+void	ft_nb_digit(ll i, t_flags flags)
 {
 	int	j;
+	ll	k;
 
+	k *= -i; 
 	j = 0;
 	while (i > 10)
 	{
@@ -41,29 +44,12 @@ void	ft_nb_digit_u(unsigned int i, t_flags flags)
 		j++;
 	}
 	j++;
-	while (j < flags.precision)
+	while (flags.precision == 1 && j < flags.precision)
 	{
 		ft_putchar('0');
 		j++;
 	}
-}
-
-void	ft_nb_digit(int i, t_flags flags)
-{
-	int		j;
-
-	j = 0;
-	while (i > 10)
-	{
-		i = i / 10;
-		j++;
-	}
-	j++;
-	while (j < flags.precision)
-	{
-		ft_putchar('0');
-		j++;
-	}
+	return (j);
 }
 
 void	ft_nb_digit_c(char *s, t_flags flags)

@@ -48,73 +48,7 @@ char	if_forest_hexa(unsigned int k)
 		return ('f');
 }
 
-unsigned int	count_c_bin(unsigned int i)
-{
-	unsigned int j;
-	unsigned int k;
 
-	j = 0;
-	while (i >= 2)
-	{
-		k = i;
-		i = i / 2;
-		k = (k % 2);
-		j++;
-	}
-	j += 2;
-	return (j);
-}
-
-void		binary_to_decimal(char *s)
-{
-	char	*s1;
-	int		i;
-	int		j;
-	int		k;
-	int		l;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	l = 1;
-	s1 = ft_inverse(s);
-	while (s1[i] != '\0')
-	{
-		if (s1[i] == '1')
-		{
-			while (k < i)
-			{
-				l = l * 2;
-				k++;
-			}
-			j = j + l;
-		}
-		i++;
-	}
-	write(1, &j, 1);
-}
-
-char	*binary(unsigned int j)
-{
-	char			*s1;
-	int				i;
-	unsigned int	k;
-	char			*s2;
-
-	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_bin(j)));
-	while  (j >= 2)
-	{
-		k = j;
-		j = j / 2;
-		k = (k % 2);
-		s1[i] = k + '0';
-		i++;
-	}
-	s1[i] = j + '0';
-	s2 = ft_inverse(s1);
-	return (s2);
-}
 
 void	tab_0(char *s1, char *tab)
 {
@@ -189,57 +123,6 @@ int		nb_octets_write(wchar_t c)
 	return(0);
 }
 
-unsigned int	count_c_hexa(unsigned int i)
-{
-	unsigned int j;
-	unsigned int k;
-
-	j = 0;
-	while (j >= 16)
-	{
-		k = i;
-		i = i / 16;
-		k = (k % 16);
-		j++;
-	}
-	j += 2;
-	return (j);
-}
-
-uli		count_c_octal_O(uli i)
-{
-	uli j;
-	uli k;
-
-	j = 0;
-	while (j >= 8)
-	{
-		k = i;
-		i = i / 8;
-		k = (k % 8);
-		j++;
-	}
-	j += 2;
-	return (j);
-}
-
-unsigned int	count_c_octal(unsigned int i)
-{
-	unsigned int j;
-	unsigned int k;
-
-	j = 0;
-	while (j >= 8)
-	{
-		k = i;
-		i = i / 8;
-		k = (k % 8);
-		j++;
-	}
-	j += 2;
-	return (j);
-}
-
 char *ft_inverse(char *s)
 {
 	int i;
@@ -256,202 +139,6 @@ char *ft_inverse(char *s)
 		j--;
 	}
 	return (s2);
-}
-
-char	*conv_hexa_p_X_h(void *j)
-{
-	char			*s1;
-	int				i;
-	unsigned int	*m;
-	char			*s2;
-	unsigned int	l;
-	unsigned int	k;
-
-	m = (unsigned int*)j;
-	l = m[1];
-	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(l)));
-	while  (l >= 16)
-	{
-		k = l;
-		l = l / 16;
-		k = (k % 16);
-		s1[i] = if_forest_hexa(k);
-		i++;
-	}
-	s1[i] = if_forest_hexa(l);
-	s2 = ft_inverse(s1);
-	free(s1);
-	return (s2);
-}
-
-char	*conv_hexa_X(unsigned int j)
-{
-	char			*s1;
-	int				i;
-	unsigned int	k;
-	char			*s2;
-
-	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j)));
-	while  (j >= 16)
-	{
-		k = j;
-		j = j / 16;
-		k = (k % 16);
-		s1[i] = if_forest_hexa_X(k);
-		i++;
-	}
-	s1[i] = if_forest_hexa_X(j);
-	s2 = ft_inverse(s1);
-	return (s2);
-}
-
-char	*conv_hexa(unsigned int j)
-{
-	char			*s1;
-	int				i;
-	unsigned int	k;
-	char			*s2;
-
-	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j)));
-	while  (j >= 16)
-	{
-		k = j;
-		j = j / 16;
-		k = (k % 16);
-		s1[i] = if_forest_hexa(k);
-		i++;
-	}
-	s1[i] = if_forest_hexa(j);
-	
-	s2 = ft_inverse(s1);
-	return (s2);
-}
-
-unsigned int	conv_octal_O(uli j)
-{
-	char			*s1;
-	int				i;
-	uli				k;
-	char			*s2;
-
-	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_octal_O(j)));
-	while  (j >= 8)
-	{
-		k = j;
-		j = j / 8;
-		k = (k % 8);
-		s1[i] = k + '0';
-		i++;
-	}
-	s1[i] = j + '0';
-	s2 = ft_inverse(s1);
-	j = ft_atoi(s2);
-	return (j);
-}
-
-unsigned int	conv_octal(unsigned int j)
-{
-	char			*s1;
-	int				i;
-	unsigned int	k;
-	char			*s2;
-
-	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_octal(j)));
-	while  (j >= 8)
-	{
-		k = j;
-		j = j / 8;
-		k = (k % 8);
-		s1[i] = k + '0';
-		i++;
-	}
-	s1[i] = j + '0';
-	s2 = ft_inverse(s1);
-	j = ft_atoi(s2);
-	return (j);
-}
-
-void	flags_present_2(t_conv *conv, char *s1, int i, int j)
-{
-	j = 0;
-	if (s1[i] == 'h' && s1[i + 1] != 'h')
-		conv->flags.fh = 1;
-	if (s1[i] == 'h' && s1[i + 1] == 'h')
-	{
-		conv->flags.fhh = 1;
-		i +=1;
-	}
-	if (s1[i] == 'l' && s1[i + 1] != 'l')
-		conv->flags.fl= 1;
-	if (s1[i] == 'l' && s1[i + 1] == 'l')
-	{
-		conv->flags.fll = 1;
-		i += 1;
-	}
-	if (s1[i] == 'j')
-		conv->flags.j = 1;
-	
-	if (s1[i] == '.')
-	{
-		while (ft_isdigit(s1[i + j + 1]))
-			s2[j] = s1[i + (j++) + 1];
-		conv->flags.precision = ft_atoi(s2);
-	}
-}
-
-int		flags_present(t_conv *conv, char *s1, int i)
-{
-	char	*s2;
-	int		j;
-
-	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1));
-	while (s1[i] != 's' && s1[i] != 'S' && s1[i] != 'p' && s1[i] != 'd'
-		&& s1[i] != 'D' && s1[i] != 'i' && s1[i] != 'o' && s1[i] != 'O'
-			&& s1[i] != 'u' && s1[i] != 'U' && s1[i] != 'x' && s1[i] != 'X' &&
-			s1[i] != 'c' && s1[i] != 'C' && s1[i] != '\0' && s1[i] != '%')
-	{
-		if (s1[i] == '0')
-			conv->flags.zero = 1; 
-		if (s1[i] == '#')
-			conv->flags.htag = 1;
-		if (s1[i] == '+')
-			conv->flags.plus = 1;
-		if (s1[i] == ' ')
-			conv->flags.espace = 1;
-		if (s1[i] == 'z')
-			conv->flags.z = 1;
-		if (s1[i] == '-')
-			conv->flags.moins = 1;
-		flags_present_2(conv, s1, i, j);
-		i++;
-	}
-	return (i);
-}
-
-void	flags_initialization(t_conv *conv)
-{
-	conv->flags.zero = 0;
-	conv->flags.htag = 0;
-	conv->flags.espace = 0;
-	conv->flags.moins = 0;
-	conv->flags.plus = 0;
-	conv->flags.precision = 0;
-	conv->flags.fhh = 0;
-	conv->flags.fh = 0;
-	conv->flags.fl = 0;
-	conv->flags.fll = 0;
-	conv->flags.j = 0;
-	conv->flags.z = 0;
-}
-
-ull		diff_return(t_conv  conv)
-{
-	
 }
 
 int		ft_printf(char const *format, ...)
@@ -507,25 +194,19 @@ int		ft_printf(char const *format, ...)
 			}
 			if (s1[i + 1] == 'd' || s1[i] == 'i')
 			{
-				if (conv.flags.fhh == 1)
-					conv.d = (char)va_arg(conv.arg.ap, int);
-				else if (conv.flags.fh == 1)
-					conv.d = (short)va_arg(conv.arg.ap, int);
-				else
-					conv.d = va_arg(conv.arg.ap, int);
+				conv.d = diff_return(&conv);
 				if (conv.d > 0 && conv.flags.espace == 1)
 					ft_putchar(' ');
 				if (conv.d > 0 && conv.flags.plus == 1)
 					ft_putchar('+');
-				if (conv.flags.precision > 0)
-					ft_nb_digit(conv.d, conv.flags);
+				ft_nb_digit(conv.d, conv.flags);
 				ft_putnbr(conv.d);
 				format++;
 			}
 			if (s1[i + 1] == 'D')
 			{
 				conv.dd = va_arg(conv.arg.ap, li);
-				ft_putnbr_li(conv.dd);
+				ft_putnbr(conv.dd);
 				format++;
 			}
 			if (s1[i + 1] == 'c')
@@ -543,74 +224,54 @@ int		ft_printf(char const *format, ...)
 			}
 			if (s1[i + 1] == 'u')
 			{
-				if (conv.flags.fhh == 1)
-					conv.u = (unsigned char) va_arg(conv.arg.ap, unsigned int);
-				else if (conv.flags.fh == 1)
-					conv.u = (unsigned short) va_arg(conv.arg.ap, unsigned int);
-				else
-					conv.u = va_arg(conv.arg.ap, unsigned int);
-				if (conv.flags.precision > 0)
-					ft_nb_digit_u(conv.u, conv.flags);
+				conv.u = diff_u_return(&conv);
+				ft_nb_digit_u(conv.u, conv.flags);
 				ft_putnbr_u(conv.u);
 				format++;
 			}
 			if (s1[i + 1] == 'U')
 			{
 				conv.uu = va_arg(conv.arg.ap, uli);
-				if (conv.flags.precision > 0)
-					ft_nb_digit(conv.u, conv.flags);
-				ft_putnbr_uli(conv.uu);
+				ft_nb_digit_u(conv.u, conv.flags);
+				ft_putnbr_u(conv.uu);
 				format++;
 			}
 			if (s1[i + 1] == 'o')
 			{
 				
-				if (conv.flags.fhh == 1)
-					conv.o = (unsigned char) va_arg(conv.arg.ap, unsigned int);
-				else if (conv.flags.fh == 1)
-					conv.o = (unsigned short) va_arg(conv.arg.ap, unsigned int);
-				else
-					conv.o = va_arg(conv.arg.ap, unsigned int);
+				conv.o = diff_u_return(&conv);
 				conv.o = conv_octal(conv.o);
 				if (conv.o > 0 && conv.flags.htag == 1)
 					ft_putchar('0');
-				if (conv.flags.precision > 0)
-					ft_nb_digit_u(conv.o, conv.flags);
+				ft_nb_digit_u(conv.o, conv.flags);
 				ft_putnbr_u(conv.o);
 				format++;
 			}
 			if (s1[i + 1] == 'O')
 			{
 				conv.oo = va_arg(conv.arg.ap, uli);
-				conv.oo = conv_octal_O(conv.oo);
+				conv.oo = conv_octal(conv.oo);
 				if (conv.oo > 0 && conv.flags.htag == 1)
 					ft_putchar('0');
-				ft_putnbr_li(conv.oo);
+				ft_putnbr(conv.oo);
 				format++;
 			}
 			if (s1[i + 1] == 'x')
 			{
-				if (conv.flags.fhh == 1)
-					conv.x = (unsigned char) va_arg(conv.arg.ap, unsigned int);
-				else if (conv.flags.fh == 1)
-					conv.x = (unsigned short) va_arg(conv.arg.ap, unsigned int);
-				else
-					conv.x = va_arg(conv.arg.ap, unsigned int);
+				conv.x = diff_u_return(&conv);
 				if (conv_hexa(conv.x)[0] != 0 && conv.flags.htag == 1)
 					ft_putstr("0x");
-				if (conv.flags.precision > 0)
-					ft_nb_digit_u(conv.x, conv.flags);
+				ft_nb_digit_u(conv.x, conv.flags);
 				ft_putstr(conv_hexa(conv.x));
 				compteur += ft_strlen(conv_hexa(conv.x));
 				format++;
 			}
 			if (s1[i + 1] == 'X')
 			{
-				conv.xx = va_arg(conv.arg.ap, unsigned int);
+				conv.xx = diff_u_return(&conv);
 				if (conv_hexa(conv.x)[0] != 0 && conv.flags.htag == 1)
 					ft_putstr("0X");
-				if (conv.flags.precision > 0)
-					ft_nb_digit_u(conv.xx, conv.flags);
+				ft_nb_digit_u(conv.xx, conv.flags);
 				ft_putstr(conv_hexa_X(conv.xx));
 				compteur += ft_strlen(conv_hexa_X(conv.xx));
 				format++;

@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-static char		*ft_nbr(uli n, uli *i)
+static char		*ft_nbr(ull n, ull *i)
 {
 	char	*s2;
-	uli	j;
-	uli	m;
-	uli	save;
+	ull	j;
+	ull	m;
+	ull	save;
 
 	save = n;
 	j = save;
@@ -41,12 +41,12 @@ static char		*ft_nbr(uli n, uli *i)
 	return (s2);
 }
 
-char			*ft_itoa_uli(uli n)
+char			*ft_itoa_uli(ull n)
 {
-	uli	i;
-	uli	k;
-	char			*s1;
-	char			*s2;
+	ull		i;
+	ull		k;
+	char	*s1;
+	char	*s2;
 
 		i = 0;
 		k = 0;

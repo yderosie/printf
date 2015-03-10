@@ -22,7 +22,7 @@
 
 typedef long int			li;
 typedef unsigned long int	uli;
-typedef long long int		ll;
+typedef long long			ll;
 typedef unsigned long long	ull;
 
 typedef struct	s_arg
