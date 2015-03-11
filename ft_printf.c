@@ -48,8 +48,6 @@ char	if_forest_hexa(unsigned int k)
 		return ('f');
 }
 
-
-
 void	tab_0(char *s1, char *tab)
 {
 	int		i;

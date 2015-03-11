@@ -14,10 +14,6 @@
 
 void	ft_putnbr(ll n)
 {
-	if (n == -9223372036854775808)
-		ft_putstr("-9223372036854775808");
-	else
-	{
 		if (n < 0)
 		{
 			ft_putchar('-');
@@ -25,20 +21,19 @@ void	ft_putnbr(ll n)
 		}
 		if (n >= 10)
 		{
-			ft_putnbr_ll(n / 10);
-			ft_putnbr_ll(n % 10);
+			ft_putnbr(n / 10);
+			ft_putnbr(n % 10);
 		}
 		else
 			ft_putchar(48 + n);
-	}
 }
 
 void	ft_putnbr_u(ull n)
 {
 	if (n >= 10)
 	{
-		ft_putnbr_ull(n / 10);
-		ft_putnbr_ull(n % 10);
+		ft_putnbr_u(n / 10);
+		ft_putnbr_u(n % 10);
 	}
 	else
 		ft_putchar(48 + n);

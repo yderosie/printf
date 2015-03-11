@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-static char		*ft_nbr(unsigned int n, unsigned int *i)
+static char		*ft_nbr(ull n, ull *i)
 {
 	char	*s2;
-	size_t	j;
-	size_t	m;
-	size_t	save;
+	ull	j;
+	ull	m;
+	ull	save;
 
 	save = n;
 	j = save;
@@ -41,12 +41,12 @@ static char		*ft_nbr(unsigned int n, unsigned int *i)
 	return (s2);
 }
 
-char			*ft_itoa_u(unsigned int n)
+char			*ft_itoa_u(ull n)
 {
-	unsigned int	i;
-	unsigned int	k;
-	char			*s1;
-	char			*s2;
+	ull		i;
+	ull		k;
+	char	*s1;
+	char	*s2;
 
 		i = 0;
 		k = 0;

@@ -48,24 +48,19 @@ char			*ft_itoa(ll n)
 	char	*s1;
 	char	*s2;
 
-	if (n == -9223372036854775808)
-		return ("-9223372036854775808");
-	else
+	i = 0;
+	k = 0;
+	s2 = ft_nbr(n, &i);
+	s1 = (char *)malloc(sizeof(*s1) * (1 + 11));
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	if (n < 0)
 	{
-		i = 0;
-		k = 0;
-		s2 = ft_nbr(n, &i);
-		s1 = (char *)malloc(sizeof(*s1) * (1 + 11));
-		if (s1 == NULL || s2 == NULL)
-			return (NULL);
-		if (n < 0)
-		{
-			s1[0] = '-';
-			k++;
-		}
-		while (i >= 0)
-			s1[k++] = s2[--i];
-		s1[k] = '\0';
-		return (s1);
+		s1[0] = '-';
+		k++;
 	}
+	while (i >= 0)
+		s1[k++] = s2[--i];
+	s1[k] = '\0';
+	return (s1);
 }

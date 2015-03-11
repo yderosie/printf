@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_nb_digit_u(ull i, t_flags flags)
+int		ft_nb_digit_u(ull i, t_flags flags)
 {
 	int	j;
 
@@ -31,16 +31,16 @@ void	ft_nb_digit_u(ull i, t_flags flags)
 	return (j);
 }
 
-void	ft_nb_digit(ll i, t_flags flags)
+int		ft_nb_digit(ll i, t_flags flags)
 {
 	int	j;
 	ll	k;
 
-	k *= -i; 
+	k = -i;
 	j = 0;
-	while (i > 10)
+	while (k > 10)
 	{
-		i = i / 10;
+		k = k / 10;
 		j++;
 	}
 	j++;

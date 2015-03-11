@@ -23,10 +23,10 @@ int main(void)
 //	int	j;
 //	j = 0;
 //	s1 = "11111111       00000000 10101010";
-	printf("pr = [%d\n]", printf("%s\n", 0));
-	printf("pr = [%d\n]", printf("%s\n", 0));
-	printf("pr = [%d\n]", printf("%s\n", 0));
-	printf("fpr = [%d\n]", ft_printf("%s\n", 0));
+//	printf("pr = [%d\n]", printf("%s\n", 0));
+//	printf("pr = [%d\n]", printf("%s\n", 0));
+//	printf("pr = [%d\n]", printf("%s\n", 0));
+//	printf("fpr = [%d\n]", ft_printf("%s\n", 0));
 	ft_printf("qwe%s\n%hdr%lut%%yu\n%#X\ni%Sop\n", "test", 1230000, 4000000000, 4048, L"我是一只猫。"/*, argv[2], argv[3], argv[4]*/);
 	printf("qwe%s\n%hdr%lut%%yu\n%#X\ni%Sop\n", "test", 1230000, 4000000000, 4048, L"我是一只猫。"/*, argv[2], argv[3], argv[4]*/);
 	printf("printf = %%\n");
