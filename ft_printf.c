@@ -167,7 +167,7 @@ int		ft_printf(char const *format, ...)
 		if (s1[i] == '%')
 		{
 			flags_initialization(&conv);
-			i += flags_present(&conv, s1, i + 1);
+			i += flags_present(&conv, s1 + i + 1, 0);
 			if (s1[i + 1] == 's')
 			{
 				conv.s = va_arg(conv.arg.ap, char*);
@@ -216,7 +216,7 @@ int		ft_printf(char const *format, ...)
 			}
 			if (s1[i + 1] == 'C')
 			{
-				conv.cc = va_arg(conv.arg.ap, wchar_t);
+				conv.cc = va_arg(conv.arg.ap, wint_t);
 				nb_octets_write(conv.cc);
 				format++;
 			}

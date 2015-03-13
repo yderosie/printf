@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <locale.h>
 # include <stdarg.h>
+# include <wchar.h>
 
 typedef long int			li;
 typedef unsigned long int	uli;
