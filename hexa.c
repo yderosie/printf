@@ -4,13 +4,13 @@
 char	*conv_hexa_p_X_h(void *j)
 {
 	char			*s1;
-	int				i;
-	unsigned int	*m;
+	ll				i;
+	ull				*m;
 	char			*s2;
-	unsigned int	l;
-	unsigned int	k;
+	ull				l;
+	ull				k;
 
-	m = (unsigned int*)j;
+	m = (ull *)j;
 	l = m[1];
 	i = 0;
 	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(l)));

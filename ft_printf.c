@@ -197,7 +197,7 @@ int		ft_printf(char const *format, ...)
 					ft_putchar(' ');
 				if (conv.d > 0 && conv.flags.plus == 1)
 					ft_putchar('+');
-				ft_nb_digit(conv.d, conv.flags);
+				compteur += ft_nb_digit(conv.d, conv.flags);
 				ft_putnbr(conv.d);
 				format++;
 			}
@@ -205,6 +205,7 @@ int		ft_printf(char const *format, ...)
 			{
 				conv.dd = va_arg(conv.arg.ap, li);
 				ft_putnbr(conv.dd);
+				compteur += ft_nb_digit(conv.dd, conv.flags);
 				format++;
 			}
 			if (s1[i + 1] == 'c')
@@ -218,12 +219,14 @@ int		ft_printf(char const *format, ...)
 			{
 				conv.cc = va_arg(conv.arg.ap, wint_t);
 				nb_octets_write(conv.cc);
+				compteur++;
 				format++;
 			}
 			if (s1[i + 1] == 'u')
 			{
 				conv.u = diff_u_return(&conv);
 				ft_nb_digit_u(conv.u, conv.flags);
+				compteur += ft_nb_digit_u(conv.u, conv.flags);
 				ft_putnbr_u(conv.u);
 				format++;
 			}
@@ -231,6 +234,7 @@ int		ft_printf(char const *format, ...)
 			{
 				conv.uu = va_arg(conv.arg.ap, uli);
 				ft_nb_digit_u(conv.u, conv.flags);
+				compteur += ft_nb_digit_u(conv.uu, conv.flags);
 				ft_putnbr_u(conv.uu);
 				format++;
 			}
@@ -242,6 +246,7 @@ int		ft_printf(char const *format, ...)
 				if (conv.o > 0 && conv.flags.htag == 1)
 					ft_putchar('0');
 				ft_nb_digit_u(conv.o, conv.flags);
+				compteur += ft_nb_digit_u(conv.o, conv.flags);
 				ft_putnbr_u(conv.o);
 				format++;
 			}
@@ -252,6 +257,7 @@ int		ft_printf(char const *format, ...)
 				if (conv.oo > 0 && conv.flags.htag == 1)
 					ft_putchar('0');
 				ft_putnbr(conv.oo);
+				compteur += ft_nb_digit_u(conv.oo, conv.flags);
 				format++;
 			}
 			if (s1[i + 1] == 'x')
@@ -277,8 +283,9 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 'p')
 			{
 				conv.p = va_arg(conv.arg.ap, void*);
-				ft_putstr("0x7fff");
+				//ft_putstr("0x7fff");
 				ft_putstr(conv_hexa_p_X_h(conv.p));
+				compteur += ft_strlen(conv_hexa_p_X_h(conv.p)) + 6;
 				format++;
 			}
 			if (s1[i + 1] == '%')
