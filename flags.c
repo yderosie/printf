@@ -1,6 +1,19 @@
 
 #include "ft_printf.h"
 
+int check_flag(char c)
+{
+	if (c != 'h' && c != 'l' && c != 'j' && c != '#' && c != '+' && c != ' ' &&
+		c != 'z' && c != 's' && c != 'S' && c != 'p' && c != 'd' && c != 'D' &&
+		c != 'i' && c != 'o' && c != 'O' && c != 'u' && c != 'U' && c != 'x' &&
+		c != 'c' && c != 'C' && c != '\0' && c != '%' && c != '	')
+	{
+		return (0);
+	}
+	else
+		return (1);
+}
+
 void	flags_present_2(t_conv *conv, char *s1, int i)
 {
 	if (s1[i] == 'h' && s1[i + 1] != 'h')
@@ -36,6 +49,9 @@ int		flags_present(t_conv *conv, char *s1, int i)
 
 	j = -1;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1));
+	//printf("%s\n", s1);
+	if (s1[i] == ' ' || s1[i] == '	' || s1[i] == '\0')
+		return(i);
 	while (s1[i] != 's' && s1[i] != 'S' && s1[i] != 'p' && s1[i] != 'd'
 		&& s1[i] != 'D' && s1[i] != 'i' && s1[i] != 'o' && s1[i] != 'O'
 			&& s1[i] != 'u' && s1[i] != 'U' && s1[i] != 'x' && s1[i] != 'X' &&

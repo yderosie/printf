@@ -17,7 +17,7 @@ int		ft_nb_digit_u(ull i, t_flags flags)
 	int	j;
 
 	j = 0;
-	while (i > 10)
+	while (i > 9)
 	{
 		i = i / 10;
 		j++;
@@ -36,12 +36,11 @@ int		ft_nb_digit(ll i, t_flags flags)
 	int	j;
 	ll	k;
 
-
 	j = 0;
 	k = i;
 	if (i < 0)
 	{
-		k = -i;
+		k =  -i;
 		j++;
 	}
 	while (k > 10)

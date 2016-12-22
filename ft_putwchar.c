@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_putwchar(wchar_t c)
+size_t	ft_putwchar(wchar_t c)
 {
-	write(1, &c, 1);
+	return (write(1, &c, 1));
 }

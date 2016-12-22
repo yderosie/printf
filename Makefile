@@ -6,13 +6,14 @@
 #    By: yderosie <yderosie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/18 16:04:33 by yderosie          #+#    #+#              #
-#    Updated: 2015/02/18 16:04:34 by yderosie         ###   ########.fr        #
+#    Updated: 2016/12/22 15:12:39 by yderosie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = 
+#-Wall -Wextra -Werror
 
 FILES = ft_printf \
 		ft_atoi \
@@ -33,7 +34,7 @@ FILES = ft_printf \
 		ft_strsplit \
 		flags \
 		bin \
-		hexa\
+		hexa \
 		octal
 
 SRCS = $(addsuffix .c, $(FILES))
@@ -49,7 +50,7 @@ $(NAME): $(OBJ)
 	ranlib $(NAME)
 
 obj/%.o: %.c
-	@$(CC) $(CFLAGS) -I./ -o $@ -c $^
+	$(CC) $(CFLAGS) -I./ -o $@ -c $^
 
 clean:
 	test ! -d obj || \

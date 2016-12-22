@@ -18,7 +18,7 @@ unsigned int	count_c_bin(unsigned int i)
 	return (j);
 }
 
-void		binary_to_decimal(char *s)
+size_t		binary_to_decimal(char *s)
 {
 	char	*s1;
 	int		i;
@@ -44,7 +44,7 @@ void		binary_to_decimal(char *s)
 		}
 		i++;
 	}
-	write(1, &j, 1);
+	return (write(1, &j, 1));
 }
 
 char	*binary(unsigned int j)

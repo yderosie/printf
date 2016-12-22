@@ -14,6 +14,12 @@
 
 void	ft_putnbr(ll n)
 {
+	if (n == (-9223372036854775807 - 1))
+	{
+		ft_putstr("-9223372036854775808");
+	}
+	else
+	{
 		if (n < 0)
 		{
 			ft_putchar('-');
@@ -26,6 +32,7 @@ void	ft_putnbr(ll n)
 		}
 		else
 			ft_putchar(48 + n);
+	}
 }
 
 void	ft_putnbr_u(ull n)
