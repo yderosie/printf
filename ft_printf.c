@@ -175,8 +175,7 @@ int		ft_printf(char const *format, ...)
 		//printf("s1 = %s , j = %d, i = %d\n",s1,j, i);
 
 		s2[j] = '\0';
-		ft_putstr(s2);
-		compteur += ft_strlen(s2);
+		compteur += ft_putstr(s2);
 		//printf("i =% d, %d\n", i, compteur);
 		//printf("s1 = %s, s2 = %s\n", s1, s2);
 		if (s1[i] == '%' && s1[i + 1] != '\0')
@@ -187,16 +186,10 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 's')
 			{
 				conv.s = va_arg(conv.arg.ap, char*);
-				ft_putstr(conv.s);
 				if (conv.s != NULL)
-				{
-					compteur += ft_strlen(conv.s);
-				}
+					compteur += ft_putstr(conv.s);
 				else
-				{
-					ft_putstr("(null)");
-					compteur += 6;
-				}
+					compteur += ft_putstr("(null)");
 				format++;
 			}
 			if (s1[i + 1] == 'S')
@@ -212,8 +205,7 @@ int		ft_printf(char const *format, ...)
 				}
 				else
 				{
-					ft_putstr("(null)");
-					compteur += 6;
+					compteur += ft_putstr("(null)");
 				}
 				format++;
 			}
@@ -228,11 +220,9 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 'D')
 			{
 				conv.dd = va_arg(conv.arg.ap, li);
-				ft_putnbr(conv.dd);
+				compteur += ft_putnbr(conv.dd);
 				if (conv.dd == (-9223372036854775807 - 1))
 					compteur = 20;
-				else
-					compteur += ft_nb_digit(conv.dd, conv.flags);
 				format++;
 			}
 			if (s1[i + 1] == 'c')
@@ -245,8 +235,7 @@ int		ft_printf(char const *format, ...)
 				else
 				{
 					conv.c = va_arg(conv.arg.ap, int);
-					ft_putchar(conv.c);
-					compteur += 1;
+					compteur += ft_putchar(conv.c);
 				}
 				format++;
 			}
@@ -260,16 +249,14 @@ int		ft_printf(char const *format, ...)
 			{
 				conv.u = diff_u_return(&conv);
 				ft_nb_digit_u(conv.u, conv.flags);
-				compteur += ft_nb_digit_u(conv.u, conv.flags);
-				ft_putnbr_u(conv.u);
+				compteur += ft_putnbr_u(conv.u);
 				format++;
 			}
 			if (s1[i + 1] == 'U')
 			{
 				conv.uu = va_arg(conv.arg.ap, uli);
 				ft_nb_digit_u(conv.u, conv.flags);
-				compteur += ft_nb_digit_u(conv.uu, conv.flags);
-				ft_putnbr_u(conv.uu);
+				compteur += ft_putnbr_u(conv.uu);
 				format++;
 			}
 			if (s1[i + 1] == 'o')
@@ -280,8 +267,7 @@ int		ft_printf(char const *format, ...)
 				if (conv.o > 0 && conv.flags.htag == 1)
 					ft_putchar('0');
 				ft_nb_digit_u(conv.o, conv.flags);
-				compteur += ft_nb_digit_u(conv.o, conv.flags);
-				ft_putnbr_u(conv.o);
+				compteur += ft_putnbr_u(conv.o);
 				format++;
 			}
 			if (s1[i + 1] == 'O')
@@ -297,8 +283,7 @@ int		ft_printf(char const *format, ...)
 					conv.oo = conv_octal(conv.oo);
 					if (conv.oo > 0 && conv.flags.htag == 1)
 						ft_putchar('0');
-					ft_putnbr(conv.oo);
-					compteur += ft_nb_digit_u(conv.oo, conv.flags);
+					compteur += ft_putnbr(conv.oo);
 				}
 				format++;
 			}
@@ -308,8 +293,7 @@ int		ft_printf(char const *format, ...)
 				if (conv_hexa(conv.x)[0] != 0 && conv.flags.htag == 1)
 					ft_putstr("0x");
 				ft_nb_digit_u(conv.x, conv.flags);
-				ft_putstr(conv_hexa(conv.x));
-				compteur += ft_strlen(conv_hexa(conv.x));
+				compteur += ft_putstr(conv_hexa(conv.x));
 				format++;
 			}
 			if (s1[i + 1] == 'X')
@@ -318,8 +302,7 @@ int		ft_printf(char const *format, ...)
 				if (conv_hexa(conv.x)[0] != 0 && conv.flags.htag == 1)
 					ft_putstr("0X");
 				ft_nb_digit_u(conv.xx, conv.flags);
-				ft_putstr(conv_hexa_X(conv.xx));
-				compteur += ft_strlen(conv_hexa_X(conv.xx));
+				compteur += ft_putstr(conv_hexa_X(conv.xx));
 				format++;
 			}
 			if (s1[i + 1] == 'p')
@@ -333,27 +316,23 @@ int		ft_printf(char const *format, ...)
 				else if (conv.flags.fl == 1)
 				{
 					compteur += ft_putstr("0x");
-					ft_putstr(conv_hexa((unsigned int)conv.p));
-					compteur += ft_strlen(conv_hexa((unsigned int)conv.p));
+					compteur += ft_putstr(conv_hexa((unsigned int)conv.p));
 				}
 				else
 				{
-					ft_putstr("0x7fff");
-					ft_putstr(conv_hexa((unsigned int)conv.p));
-					compteur += ft_strlen(conv_hexa((unsigned int)conv.p)) + 6;
+					compteur += ft_putstr("0x7fff");
+					compteur += ft_putstr(conv_hexa((unsigned int)conv.p));
 				}
 				format++;
 			}
 			if (s1[i + 1] == '%')
 			{
-				compteur++;
-				ft_putchar('%');
+				compteur += ft_putchar('%');
 			}
 			//printf("test2 %d / %d\n", check_flag(s1[i]), ft_isdigit(s1[i]));
 			if (s1[i + 1] == ' ' && s1[i + 2] == '%')
 			{
-				ft_putchar('%');
-				compteur++;
+				compteur += ft_putchar('%');
 				i += 3;
 			}
 			else if (s1[i] == ' ')

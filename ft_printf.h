@@ -101,7 +101,7 @@ int				ft_nb_digit_u(ull i, t_flags flags);
 int				ft_nb_digit(ll i, t_flags flags);
 char			*conv_hexa_X(unsigned int j);
 char			*conv_hexa_p_X_h(unsigned int j);
-void			ft_putnbr_u(ull n);
+int				ft_putnbr_u(ull n);
 int				ft_putnbr(ll n);
 unsigned int	count_c_hexa(unsigned int i);
 char			if_forest_hexa_X(unsigned int k);
