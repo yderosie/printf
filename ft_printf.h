@@ -40,6 +40,7 @@ typedef struct 	s_flags
 	int		moins;
 	int		plus;
 	int		precision;
+	int		largeur;
 	int		fhh;
 	int		fh;
 	int		fl;

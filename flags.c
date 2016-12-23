@@ -46,8 +46,10 @@ int		flags_present(t_conv *conv, char *s1, int i)
 {
 	char	*s2;
 	int		j;
+	int		k;
 
 	j = -1;
+	k = 0;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1));
 	//printf("%s\n", s1);
 	if (s1[i] == ' ' || s1[i] == '	' || s1[i] == '\0')
@@ -57,6 +59,11 @@ int		flags_present(t_conv *conv, char *s1, int i)
 			&& s1[i] != 'u' && s1[i] != 'U' && s1[i] != 'x' && s1[i] != 'X' &&
 			s1[i] != 'c' && s1[i] != 'C' && s1[i] != '\0' && s1[i] != '%')
 	{
+		if (ft_isdigit(s1[i]) != 0)
+		{
+			s2[k] = s1[i];
+			k++;
+		}
 		if (s1[i] == '0')
 			conv->flags.zero = 1; 
 		if (s1[i] == '.')
@@ -70,6 +77,8 @@ int		flags_present(t_conv *conv, char *s1, int i)
 		flags_present_2(conv, s1, i);
 		i++;
 	}
+	conv->flags.largeur = ft_atoi(s2);
+	printf("%d\n", conv->flags.largeur);
 	return (i);
 }
 

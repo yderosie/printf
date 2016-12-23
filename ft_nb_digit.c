@@ -43,7 +43,7 @@ int		ft_nb_digit(ll i, t_flags flags)
 		k =  -i;
 		j++;
 	}
-	while (k > 10)
+	while (k > 9)
 	{
 		k = k / 10;
 		j++;

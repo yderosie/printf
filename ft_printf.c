@@ -12,6 +12,19 @@
 
 #include "ft_printf.h"
 
+int		print_space(int i)
+{
+	int rt;
+
+	rt = 0;
+	while (i > 0)
+	{
+		rt += ft_putchar(' ');
+		i--;
+	}
+	return (rt);
+}
+
 char	if_forest_hexa_X(unsigned int k)
 {
 	if (k < 10)
@@ -214,6 +227,8 @@ int		ft_printf(char const *format, ...)
 				conv.d = diff_return(&conv);
 				if (conv.d > 0 && conv.flags.plus == 1)
 					ft_putchar('+');
+				if (conv.d > 0 && conv.flags.largeur > 0)
+					compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
 				compteur += ft_putnbr(conv.d);
 				format++;
 			}
