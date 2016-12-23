@@ -18,6 +18,24 @@ unsigned int	count_c_octal(ull i)
 	return (j);
 }
 
+ull	conv_octal(ull j)
+{
+	int remainder;
+	ll o;
+	ll i;
+
+	o = 0;
+	i = 1;
+	while (j != 0)
+	{
+		remainder = j % 8;
+		j = j / 8;
+		o = o + (remainder * i);
+		i = i * 10;
+	}
+	return (o);
+}
+/*
 unsigned int	conv_octal(ull j)
 {
 	char			*s1;
@@ -39,4 +57,4 @@ unsigned int	conv_octal(ull j)
 	s2 = ft_inverse(s1);
 	j = ft_atoi(s2);
 	return (j);
-}
+}*/

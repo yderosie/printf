@@ -6,7 +6,7 @@ int check_flag(char c)
 	if (c != 'h' && c != 'l' && c != 'j' && c != '#' && c != '+' && c != ' ' &&
 		c != 'z' && c != 's' && c != 'S' && c != 'p' && c != 'd' && c != 'D' &&
 		c != 'i' && c != 'o' && c != 'O' && c != 'u' && c != 'U' && c != 'x' &&
-		c != 'c' && c != 'C' && c != '\0' && c != '%' && c != '	')
+		c != 'c' && c != 'C' && c != '\0' && c != '%' && c != '	' && ft_isdigit(c) == 0 && c != '.')
 	{
 		return (0);
 	}
@@ -91,6 +91,7 @@ void	flags_initialization(t_conv *conv)
 
 ll		diff_return(t_conv *conv)
 {
+	//printf("%d%d%d%d%d%d\n", conv->flags.fhh,conv->flags.fh,conv->flags.fl,conv->flags.fll,conv->flags.j,conv->flags.z);
 	if (conv->flags.fhh == 1)
 		return ((char)va_arg(conv->arg.ap, int));
 	if (conv->flags.fh == 1)
@@ -109,6 +110,7 @@ ll		diff_return(t_conv *conv)
 
 ull		diff_u_return(t_conv *conv)
 {
+	//printf("%d%d%d%d%d%d\n", conv->flags.fhh,conv->flags.fh,conv->flags.fl,conv->flags.fll,conv->flags.j,conv->flags.z);
 	if (conv->flags.fhh == 1)
 		return ((unsigned char)va_arg(conv->arg.ap, unsigned int));
 	if (conv->flags.fh == 1)

@@ -1,30 +1,25 @@
 
 #include "ft_printf.h"
 
-char	*conv_hexa_p_X_h(void *j)
+char	*conv_hexa_p_X_h(unsigned int j)
 {
 	char			*s1;
-	ll				i;
-	ull				*m;
+	int				i;
+	unsigned int	k;
 	char			*s2;
-	ull				l;
-	ull				k;
 
-	m = (ull *)j;
-	l = m[1];
 	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(l)));
-	while  (l >= 16)
+	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j)));
+	while  (j >= 16)
 	{
-		k = l;
-		l = l / 16;
+		k = j;
+		j = j / 16;
 		k = (k % 16);
-		s1[i] = if_forest_hexa(k);
+		s1[i] = if_forest_hexa_X(k);
 		i++;
 	}
-	s1[i] = if_forest_hexa(l);
+	s1[i] = if_forest_hexa_X(j);
 	s2 = ft_inverse(s1);
-	free(s1);
 	return (s2);
 }
 

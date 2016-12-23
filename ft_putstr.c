@@ -12,14 +12,17 @@
 
 #include "ft_printf.h"
 
-void	ft_putstr(char const *s)
+int	ft_putstr(char const *s)
 {
 	int i;
+	int rt;
 
 	i = 0;
+	rt = 0;
 	while (s != NULL && s[i] != '\0')
 	{
-		ft_putchar(s[i]);
+		rt += ft_putchar(s[i]);
 		i++;
 	}
+	return (rt);
 }

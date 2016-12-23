@@ -220,12 +220,9 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 'd' || s1[i + 1] == 'i')
 			{
 				conv.d = diff_return(&conv);
-				/*if (conv.d > 0 && conv.flags.espace == 1)
-					ft_putchar(' ');*/
 				if (conv.d > 0 && conv.flags.plus == 1)
 					ft_putchar('+');
-				compteur += ft_nb_digit(conv.d, conv.flags);
-				ft_putnbr(conv.d);
+				compteur += ft_putnbr(conv.d);
 				format++;
 			}
 			if (s1[i + 1] == 'D')
@@ -240,9 +237,17 @@ int		ft_printf(char const *format, ...)
 			}
 			if (s1[i + 1] == 'c')
 			{
-				conv.c = va_arg(conv.arg.ap, int);
-				ft_putchar(conv.c);
-				compteur += 1;
+				if (conv.d > 0 && conv.flags.fl == 1)
+				{
+					conv.cc = va_arg(conv.arg.ap, wint_t);
+					compteur += nb_octets_write(conv.cc);
+				}
+				else
+				{
+					conv.c = va_arg(conv.arg.ap, int);
+					ft_putchar(conv.c);
+					compteur += 1;
+				}
 				format++;
 			}
 			if (s1[i + 1] == 'C')
@@ -325,6 +330,12 @@ int		ft_printf(char const *format, ...)
 					ft_putstr("0x0");
 					compteur += 3;
 				}
+				else if (conv.flags.fl == 1)
+				{
+					compteur += ft_putstr("0x");
+					ft_putstr(conv_hexa((unsigned int)conv.p));
+					compteur += ft_strlen(conv_hexa((unsigned int)conv.p));
+				}
 				else
 				{
 					ft_putstr("0x7fff");
@@ -338,7 +349,7 @@ int		ft_printf(char const *format, ...)
 				compteur++;
 				ft_putchar('%');
 			}
-			//printf("test2 %d\n", i);
+			//printf("test2 %d / %d\n", check_flag(s1[i]), ft_isdigit(s1[i]));
 			if (s1[i + 1] == ' ' && s1[i + 2] == '%')
 			{
 				ft_putchar('%');
@@ -354,10 +365,11 @@ int		ft_printf(char const *format, ...)
 				ft_putchar('\n');
 				return (compteur);
 			}
-			/*else if (check_flag(s1[i]) == 0)
+			else if (check_flag(s1[i]) == 0)
 			{
-				continue;
-			}*/
+				compteur += ft_putchar(s1[i]);
+				i++;
+			}
 			else
 				i += 2;
 			//printf("ifend i = %d\n", i);

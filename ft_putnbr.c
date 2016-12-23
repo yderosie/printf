@@ -12,27 +12,31 @@
 
 #include "ft_printf.h"
 
-void	ft_putnbr(ll n)
+int		ft_putnbr(ll n)
 {
+	int rt;
+
+	rt = 0;
 	if (n == (-9223372036854775807 - 1))
 	{
-		ft_putstr("-9223372036854775808");
+		return (ft_putstr("-9223372036854775808"));
 	}
 	else
 	{
 		if (n < 0)
 		{
-			ft_putchar('-');
+			rt += ft_putchar('-');
 			n = -n;
 		}
 		if (n >= 10)
 		{
-			ft_putnbr(n / 10);
-			ft_putnbr(n % 10);
+			rt += ft_putnbr(n / 10);
+			rt += ft_putnbr(n % 10);
 		}
 		else
-			ft_putchar(48 + n);
+			return (ft_putchar(48 + n) + rt);
 	}
+	return (rt);
 }
 
 void	ft_putnbr_u(ull n)

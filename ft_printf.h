@@ -69,8 +69,8 @@ typedef struct	s_conv
 }				t_conv;
 
 int		ft_printf(char const *format, ...);
-void	ft_putchar(char c);
-void	ft_putstr(char const *s);
+int		ft_putchar(char c);
+int		ft_putstr(char const *s);
 size_t	ft_strlen(char const *s);
 void	ft_bzero(void *s, size_t n);
 
@@ -102,7 +102,7 @@ int				ft_nb_digit(ll i, t_flags flags);
 char			*conv_hexa_X(unsigned int j);
 char			*conv_hexa_p_X_h(unsigned int j);
 void			ft_putnbr_u(ull n);
-void			ft_putnbr(ll n);
+int				ft_putnbr(ll n);
 unsigned int	count_c_hexa(unsigned int i);
 char			if_forest_hexa_X(unsigned int k);
 char			if_forest_hexa(unsigned int k);
