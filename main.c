@@ -24,7 +24,9 @@ int main(void)
 //	j = 0;
 //	s1 = "11111111       00000000 10101010";
 //	printf("%");
-	ft_printf("{%10d}", -42);
+	printf("%d\n", ft_printf("{%010d}", -42));
+//	ft_printf("%+d", 42);
+//	printf("%+d", 42);
 //	printf("%s\n", 1);
 //	ft_printf("%lo, %lo\n", 0, 18446744073709551615);
 //	printf("%lo, %lo\n", 0, 18446744073709551615);

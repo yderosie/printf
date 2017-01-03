@@ -36,7 +36,7 @@ void	flags_present_2(t_conv *conv, char *s1, int i)
 		conv->flags.htag = 1;
 	if (s1[i] == '+')
 		conv->flags.plus = 1;
-	if (s1[i] == ' ')
+	if (s1[0] == ' ')
 		conv->flags.espace = 1;
 	if (s1[i] == 'z')
 		conv->flags.z = 1;
@@ -52,7 +52,7 @@ int		flags_present(t_conv *conv, char *s1, int i)
 	k = 0;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1));
 	//printf("%s\n", s1);
-	if (s1[i] == ' ' || s1[i] == '	' || s1[i] == '\0')
+	if ((s1[i] == ' ' || s1[i] == '	' || s1[i] == '\0') && check_flag(s1[i] != 1))
 		return(i);
 	while (s1[i] != 's' && s1[i] != 'S' && s1[i] != 'p' && s1[i] != 'd'
 		&& s1[i] != 'D' && s1[i] != 'i' && s1[i] != 'o' && s1[i] != 'O'
@@ -64,7 +64,7 @@ int		flags_present(t_conv *conv, char *s1, int i)
 			s2[k] = s1[i];
 			k++;
 		}
-		if (s1[i] == '0')
+		if (s1[0] == '0')
 			conv->flags.zero = 1; 
 		if (s1[i] == '.')
 		{
@@ -78,7 +78,7 @@ int		flags_present(t_conv *conv, char *s1, int i)
 		i++;
 	}
 	conv->flags.largeur = ft_atoi(s2);
-	printf("%d\n", conv->flags.largeur);
+	//printf("%d\n", conv->flags.largeur);
 	return (i);
 }
 

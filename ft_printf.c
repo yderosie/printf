@@ -25,6 +25,19 @@ int		print_space(int i)
 	return (rt);
 }
 
+int		print_zero(int i)
+{
+	int rt;
+
+	rt = 0;
+	while (i > 0)
+	{
+		rt += ft_putchar('0');
+		i--;
+	}
+	return (rt);
+}
+
 char	if_forest_hexa_X(unsigned int k)
 {
 	if (k < 10)
@@ -199,6 +212,8 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 's')
 			{
 				conv.s = va_arg(conv.arg.ap, char*);
+				if (conv.flags.largeur > 0 && conv.flags.zero == 1)
+					compteur += print_zero(conv.flags.largeur - ft_strlen(conv.s));
 				if (conv.s != NULL)
 					compteur += ft_putstr(conv.s);
 				else
@@ -226,10 +241,26 @@ int		ft_printf(char const *format, ...)
 			{
 				conv.d = diff_return(&conv);
 				if (conv.d > 0 && conv.flags.plus == 1)
-					ft_putchar('+');
-				if (conv.d > 0 && conv.flags.largeur > 0)
+					compteur += ft_putchar('+');
+				//printf("\n %d - %d = %d \n", conv.flags.largeur, ft_nb_digit(conv.d, conv.flags), conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
+				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
 					compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
+				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+				{
+					if (conv.d < 0)
+					{
+						conv.d = -conv.d;
+						compteur += ft_putchar('-');
+						compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1));
+					}
+					else
+						compteur += print_zero(conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
+				}
+				if (conv.d > 0 && conv.flags.espace == 1)
+					compteur += ft_putchar(' ');
 				compteur += ft_putnbr(conv.d);
+				if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
+					compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
 				format++;
 			}
 			if (s1[i + 1] == 'D')
@@ -245,11 +276,15 @@ int		ft_printf(char const *format, ...)
 				if (conv.d > 0 && conv.flags.fl == 1)
 				{
 					conv.cc = va_arg(conv.arg.ap, wint_t);
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.cc, conv.flags));
 					compteur += nb_octets_write(conv.cc);
 				}
 				else
 				{
 					conv.c = va_arg(conv.arg.ap, int);
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.c, conv.flags));
 					compteur += ft_putchar(conv.c);
 				}
 				format++;
@@ -280,7 +315,7 @@ int		ft_printf(char const *format, ...)
 				conv.o = diff_u_return(&conv);
 				conv.o = conv_octal(conv.o);
 				if (conv.o > 0 && conv.flags.htag == 1)
-					ft_putchar('0');
+					compteur += ft_putchar('0');
 				ft_nb_digit_u(conv.o, conv.flags);
 				compteur += ft_putnbr_u(conv.o);
 				format++;
@@ -297,7 +332,7 @@ int		ft_printf(char const *format, ...)
 				{
 					conv.oo = conv_octal(conv.oo);
 					if (conv.oo > 0 && conv.flags.htag == 1)
-						ft_putchar('0');
+						compteur += ft_putchar('0');
 					compteur += ft_putnbr(conv.oo);
 				}
 				format++;
@@ -305,8 +340,15 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 'x')
 			{
 				conv.x = diff_u_return(&conv);
-				if (conv_hexa(conv.x)[0] != 0 && conv.flags.htag == 1)
-					ft_putstr("0x");
+				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+				{
+					if (conv.x != 0 && conv.flags.htag == 1)
+						compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa_X(conv.x)) + 2));
+					else
+						compteur += print_zero(conv.flags.largeur - ft_strlen(conv_hexa_X(conv.x)));
+				}
+				if (conv.x != 0 && conv.flags.htag == 1)
+					compteur += ft_putstr("0x");
 				ft_nb_digit_u(conv.x, conv.flags);
 				compteur += ft_putstr(conv_hexa(conv.x));
 				format++;
@@ -314,8 +356,10 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 'X')
 			{
 				conv.xx = diff_u_return(&conv);
-				if (conv_hexa(conv.x)[0] != 0 && conv.flags.htag == 1)
-					ft_putstr("0X");
+				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+					compteur += print_zero(conv.flags.largeur - ft_strlen(conv_hexa_X(conv.xx)));
+				if (conv.xx != 0 && conv.flags.htag == 1)
+					compteur += ft_putstr("0X");
 				ft_nb_digit_u(conv.xx, conv.flags);
 				compteur += ft_putstr(conv_hexa_X(conv.xx));
 				format++;
@@ -325,18 +369,36 @@ int		ft_printf(char const *format, ...)
 				conv.p = va_arg(conv.arg.ap, void*);
 				if (conv.p == 0)
 				{
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
 					ft_putstr("0x0");
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+						compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
+					if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
 					compteur += 3;
 				}
 				else if (conv.flags.fl == 1)
 				{
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
 					compteur += ft_putstr("0x");
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+						compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
 					compteur += ft_putstr(conv_hexa((unsigned int)conv.p));
+					if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
 				}
 				else
 				{
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
 					compteur += ft_putstr("0x7fff");
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+						compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
 					compteur += ft_putstr(conv_hexa((unsigned int)conv.p));
+					if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
 				}
 				format++;
 			}
@@ -350,7 +412,7 @@ int		ft_printf(char const *format, ...)
 				compteur += ft_putchar('%');
 				i += 3;
 			}
-			else if (s1[i] == ' ')
+			else if (s1[i] == ' ' && check_flag(s1[i + 1]) != 1)
 			{
 				i++;
 			}
