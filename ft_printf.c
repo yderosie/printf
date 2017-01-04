@@ -240,14 +240,17 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 'd' || s1[i + 1] == 'i')
 			{
 				conv.d = diff_return(&conv);
-				if (conv.d > 0 && conv.flags.plus == 1)
+				//printf("%d %d %d %d\n",conv.flags.zero, conv.flags.moins, conv.flags.largeur, conv.flags.precision);
+				if (conv.d >= 0 && conv.flags.plus == 1)
 					compteur += ft_putchar('+');
 				//printf("\n %d - %d = %d \n", conv.flags.largeur, ft_nb_digit(conv.d, conv.flags), conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
 				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
 					compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
-				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1 && conv.flags.espace == 0)
 				{
-					if (conv.d < 0)
+					if (conv.flags.plus == 1)
+						compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1));
+					else if (conv.d < 0)
 					{
 						conv.d = -conv.d;
 						compteur += ft_putchar('-');
@@ -256,10 +259,14 @@ int		ft_printf(char const *format, ...)
 					else
 						compteur += print_zero(conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
 				}
-				if (conv.d > 0 && conv.flags.espace == 1)
+				if (conv.d >= 0 && conv.flags.espace == 1 && conv.flags.plus == 0)
+				{
 					compteur += ft_putchar(' ');
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+						compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1));
+				}
 				compteur += ft_putnbr(conv.d);
-				if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
+				if (conv.flags.largeur > 0 && conv.flags.moins == 1 /*&& conv.flags.zero == 0*/)
 					compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
 				format++;
 			}

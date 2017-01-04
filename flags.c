@@ -45,12 +45,14 @@ void	flags_present_2(t_conv *conv, char *s1, int i)
 int		flags_present(t_conv *conv, char *s1, int i)
 {
 	char	*s2;
+	char	*s3;
 	int		j;
 	int		k;
 
 	j = -1;
 	k = 0;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1));
+	s3 = (char *)malloc(sizeof(char) * ft_strlen(s1));
 	//printf("%s\n", s1);
 	if ((s1[i] == ' ' || s1[i] == '	' || s1[i] == '\0') && check_flag(s1[i] != 1))
 		return(i);
@@ -59,25 +61,27 @@ int		flags_present(t_conv *conv, char *s1, int i)
 			&& s1[i] != 'u' && s1[i] != 'U' && s1[i] != 'x' && s1[i] != 'X' &&
 			s1[i] != 'c' && s1[i] != 'C' && s1[i] != '\0' && s1[i] != '%')
 	{
-		if (ft_isdigit(s1[i]) != 0)
-		{
-			s2[k] = s1[i];
-			k++;
-		}
-		if (s1[0] == '0')
+		if (s1[i] == '0' && ft_isdigit(s1[i - 1]) == 0)
 			conv->flags.zero = 1; 
 		if (s1[i] == '.')
 		{
 			while (ft_isdigit(s1[i + ++j + 1]))
 				s2[j] = s1[i + j + 1];
 			conv->flags.precision = ft_atoi(s2);
+			i += j;
+		}
+		else if (ft_isdigit(s1[i]) != 0)
+		{
+			//printf("%c\n", s1[i]);
+			s3[k] = s1[i];
+			k++;
 		}
 		if (s1[i] == '-')
 			conv->flags.moins = 1;
 		flags_present_2(conv, s1, i);
 		i++;
 	}
-	conv->flags.largeur = ft_atoi(s2);
+	conv->flags.largeur = ft_atoi(s3);
 	//printf("%d\n", conv->flags.largeur);
 	return (i);
 }
@@ -90,6 +94,7 @@ void	flags_initialization(t_conv *conv)
 	conv->flags.moins = 0;
 	conv->flags.plus = 0;
 	conv->flags.precision = 0;
+	conv->flags.largeur = 0;
 	conv->flags.fhh = 0;
 	conv->flags.fh = 0;
 	conv->flags.fl = 0;
