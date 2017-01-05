@@ -36,7 +36,9 @@ int main(void)
 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}');*/
 //	ft_printf("{%0-3d}",0);
-	ft_printf("{%03.2d}", 0);
+//	printf("%d\n",ft_printf("{%15.4d}", 424242));
+//	ft_printf("%15.4d", -42);
+	ft_printf("%.4u", 42);
 //	ft_printf("%+d", 42);
 //	printf("%+d", 42);
 //	printf("%s\n", 1);

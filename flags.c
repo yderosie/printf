@@ -65,6 +65,7 @@ int		flags_present(t_conv *conv, char *s1, int i)
 			conv->flags.zero = 1; 
 		if (s1[i] == '.')
 		{
+			conv->flags.point = 1;
 			while (ft_isdigit(s1[i + ++j + 1]))
 				s2[j] = s1[i + j + 1];
 			conv->flags.precision = ft_atoi(s2);
@@ -93,6 +94,7 @@ void	flags_initialization(t_conv *conv)
 	conv->flags.espace = 0;
 	conv->flags.moins = 0;
 	conv->flags.plus = 0;
+	conv->flags.point = 0;
 	conv->flags.precision = 0;
 	conv->flags.largeur = 0;
 	conv->flags.fhh = 0;
