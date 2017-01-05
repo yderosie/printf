@@ -38,7 +38,9 @@ int main(void)
 //	ft_printf("{%0-3d}",0);
 //	printf("%d\n",ft_printf("{%15.4d}", 424242));
 //	ft_printf("%15.4d", -42);
-	ft_printf("%.4u", 42);
+//	ft_printf("%.4u", 42);
+//	ft_printf("%+03d", 0);
+	ft_printf("% d", -9999);
 //	ft_printf("%+d", 42);
 //	printf("%+d", 42);
 //	printf("%s\n", 1);

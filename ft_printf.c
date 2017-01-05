@@ -251,36 +251,37 @@ int		ft_printf(char const *format, ...)
 					sub_p = conv.flags.precision - ft_nb_digit(conv.d, conv.flags);
 					sub_p = (conv.d < 0) ? sub_p + 1 : sub_p; 
 					sub_p = (sub_p > 0) ? sub_p : 0;
-					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-						compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
-					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1 && conv.flags.espace == 0)
-					{
-						if (conv.flags.plus == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
-						else if (conv.d < 0)
-						{
-							printf("%s\n", "test");
-							conv.d = -conv.d;
-							compteur += ft_putchar('-');
-							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
-						}
-						else
-							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
-					}
+				}
+				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
+					compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
+				if (conv.d >= 0 && conv.flags.espace == 1 && conv.flags.plus == 0)
+				{
+					compteur += ft_putchar(' ');
+					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+						compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
+				}
+				if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1 && conv.flags.espace == 0)
+				{
+					if (conv.flags.plus == 1)
+						compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
 					else if (conv.d < 0)
 					{
+						//printf("%s\n", "test");
 						conv.d = -conv.d;
 						compteur += ft_putchar('-');
+						compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
 					}
-					if (conv.d >= 0 && conv.flags.espace == 1 && conv.flags.plus == 0)
-					{
-						compteur += ft_putchar(' ');
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
-					}
+					else
+						compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
 				}
+				else if (conv.d < 0)
+				{
+					conv.d = -conv.d;
+					compteur += ft_putchar('-');
+				}
+				
 				compteur += print_zero(sub_p);
-				if (conv.flags.point == 1 &&conv.flags.precision <= 0)
+				if (conv.flags.point == 1 && conv.flags.precision <= 0)
 					;
 				else
 					compteur += ft_putnbr(conv.d);
