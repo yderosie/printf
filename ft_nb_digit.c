@@ -23,11 +23,6 @@ int		ft_nb_digit_u(ull i, t_flags flags)
 		j++;
 	}
 	j++;
-	while (flags.precision == 1 && j < flags.precision)
-	{
-		ft_putchar('0');
-		j++;
-	}
 	return (j);
 }
 
@@ -49,11 +44,6 @@ int		ft_nb_digit(ll i, t_flags flags)
 		j++;
 	}
 	j++;
-	while (flags.precision == 1 && j < flags.precision)
-	{
-		ft_putchar('0');
-		j++;
-	}
 	return (j);
 }
 
@@ -62,9 +52,4 @@ void	ft_nb_digit_c(char *s, t_flags flags)
 	int	i;
 
 	i = ft_strlen(s);
-	while (i < flags.precision)
-	{
-		ft_putchar('0');
-		i++;
-	}
 }

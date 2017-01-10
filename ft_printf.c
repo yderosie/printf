@@ -194,28 +194,18 @@ int		ft_printf(char const *format, ...)
 		{
 			return(0);
 		}
-		//printf("debut i =%d, %zu\n", i, ft_strlen(s1));
 		j = 0;
 		ft_bzero(s2, ft_strlen(s2) + 1);
 		while (s1[i] != '%' && s1[i] != '\0')
 		{
-			//printf("[s2 = %c, s1 = %c ]\n", s2[j], s1[i]);
 			s2[j++] = s1[i++];
 		}
-		//printf("[%s]\n", s2);
-		//printf("s1 = %s , j = %d, i = %d\n",s1,j, i);
-
 		s2[j] = '\0';
-
-		//printf("[%s]\n", s2);
 		compteur += ft_putstr(s2);
-		//printf("i =% d, %d\n", i, compteur);
-		//printf("s1 = %s, s2 = %s\n", s1, s2);
 		if (s1[i] == '%' && s1[i + 1] != '\0')
 		{
 			flags_initialization(&conv);
 			i += flags_present(&conv, s1 + i + 1, 0);
-			//printf("if start i =%d %s\n", i, &s1[i]);
 			if (check_flag(s1[i]) == 1)
 			{
 				if (s1[i + 1] == 's')
@@ -232,11 +222,14 @@ int		ft_printf(char const *format, ...)
 							compteur += print_zero(conv.flags.largeur - sub_for_s);
 						if (conv.flags.largeur > 0 && conv.flags.zero == 0)
 							compteur += print_space(conv.flags.largeur - sub_for_s);
-						//printf("%d %d %d %d %d\n",conv.flags.zero, conv.flags.moins, conv.flags.largeur, conv.flags.point, conv.flags.precision);
 						if (conv.flags.point == 1 && conv.flags.precision < ft_strlen(conv.s))
 							compteur += ft_putnstr(conv.s, conv.flags.precision);
 						else
 							compteur += ft_putstr(conv.s);
+					}
+					else if (conv.flags.zero == 1 && conv.flags.point == 1 && conv.s == NULL)
+					{
+						compteur += print_zero(conv.flags.largeur);
 					}
 					else
 						compteur += ft_putstr("(null)");
@@ -246,16 +239,12 @@ int		ft_printf(char const *format, ...)
 				{
 					//printf("%c\n", 'S');
 					conv.ss = va_arg(conv.arg.ap, wchar_t*);
-					/*if (conv.flags.point == 1 && conv.flags.precision < ft_strlen_for_wchar(conv.ss))
-						sub_for_s = conv.flags.precision;
-					else
-						sub_for_s = ft_strlen_for_wchar(conv.ss);
-					if (conv.flags.largeur > 0 && conv.flags.zero == 1)
-						compteur += print_zero(conv.flags.largeur - sub_for_s);
-					if (conv.flags.largeur > 0 && conv.flags.zero == 0)
-						compteur += print_space(conv.flags.largeur - sub_for_s);*/
 					if (conv.ss != NULL)
 					{
+						/*if (conv.flags.largeur > 0 && conv.flags.zero == 1)
+							compteur += print_zero(conv.flags.largeur - ft_nb_digit(conv.ss, conv.flags));
+						if (conv.flags.largeur > 0 && conv.flags.zero == 0)
+							compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.ss, conv.flags));*/
 						while (conv.ss[k] != '\0')
 						{
 							compteur += nb_octets_write(conv.ss[k]);
@@ -275,7 +264,6 @@ int		ft_printf(char const *format, ...)
 					//printf("%d %d %d %d\n",conv.flags.zero, conv.flags.moins, conv.flags.largeur, conv.flags.precision);
 					if (conv.d >= 0 && conv.flags.plus == 1)
 						compteur += ft_putchar('+');
-					//printf("\n %d - %d = %d \n", conv.flags.largeur, ft_nb_digit(conv.d, conv.flags), conv.flags.largeur - ft_nb_digit(conv.d, conv.flags));
 					if (conv.flags.point == 1)
 					{
 						sub_p = conv.flags.precision - ft_nb_digit(conv.d, conv.flags);
@@ -298,18 +286,21 @@ int		ft_printf(char const *format, ...)
 							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
 						else if (conv.d < 0)
 						{
-							//printf("%s\n", "test");
-							conv.d = -conv.d;
+							conv.d = conv.d * -1;
 							compteur += ft_putchar('-');
 							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
 						}
 						else
 						{
-							//printf("%d\n", conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
-							compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
+							if (conv.flags.point == 1)
+							{
+								compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
+							}
+							else
+								compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
 						}
 					}
-					else if (conv.d < 0)
+					else if (conv.d < 0 && conv.d > -9223372036854775808)
 					{
 						conv.d = -conv.d;
 						compteur += ft_putchar('-');
@@ -319,7 +310,7 @@ int		ft_printf(char const *format, ...)
 						;
 					else
 						compteur += ft_putnbr(conv.d);
-					if (conv.flags.largeur > 0 && conv.flags.moins == 1 /*&& conv.flags.zero == 0*/)
+					if (conv.flags.largeur > 0 && conv.flags.moins == 1)
 						compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
 					format++;
 				}
@@ -347,6 +338,8 @@ int		ft_printf(char const *format, ...)
 						conv.c = va_arg(conv.arg.ap, int);
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
 							compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.c, conv.flags));
+						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+							compteur += print_zero(conv.flags.largeur - ft_nb_digit(conv.c, conv.flags));
 						compteur += ft_putchar(conv.c);
 					}
 					format++;
@@ -387,7 +380,6 @@ int		ft_printf(char const *format, ...)
 					compteur += ft_putnbr_u(conv.uu);
 					format++;
 				}
-				//printf("{%c %c} \n", s1[i], s1[i + 1]);
 				if (s1[i + 1] == 'o')
 				{
 					//printf("%c\n", 'o');
@@ -395,21 +387,22 @@ int		ft_printf(char const *format, ...)
 					conv.o = conv_octal(conv.o);
 					if (conv.o > 0 && conv.flags.htag == 1)
 						compteur += ft_putchar('0');
+					else if (conv.o == 0 && conv.flags.htag == 1 && conv.flags.point == 1 && conv.flags.precision == 0)
+					{
+						compteur += ft_putchar('0');
+					}
 					if (conv.flags.point == 1)
 					{
-						//printf("%s\n", "test");
 						sub_p = conv.flags.precision - ft_nb_digit(conv.o, conv.flags);
 						sub_p = (sub_p > 0) ? sub_p : 0;
 						if (conv.flags.precision > 0)
 							compteur += print_space(conv.flags.largeur - (ft_nb_digit_u(conv.o, conv.flags) + sub_p));
 						compteur += print_zero(sub_p);
 					}
-					//ft_nb_digit_u(conv.o, conv.flags);
 					if (conv.flags.point == 1 && conv.flags.precision <= 0)
 						;
 					else
 						compteur += ft_putnbr(conv.o);
-					//compteur += ft_putnbr_u(conv.o);
 					format++;
 				}
 				if (s1[i + 1] == 'O')
@@ -428,19 +421,16 @@ int		ft_printf(char const *format, ...)
 							compteur += ft_putchar('0');
 						if (conv.flags.point == 1)
 						{
-							//printf("%s\n", "test");
 							sub_p = conv.flags.precision - ft_nb_digit(conv.oo, conv.flags);
 							sub_p = (sub_p > 0) ? sub_p : 0;
 							if (conv.flags.precision > 0)
 								compteur += print_space(conv.flags.largeur - (ft_nb_digit_u(conv.oo, conv.flags) + sub_p));
 							compteur += print_zero(sub_p);
 						}
-						//ft_nb_digit_u(conv.oo, conv.flags);
 						if (conv.flags.point == 1 && conv.flags.precision <= 0)
 							;
 						else
 							compteur += ft_putnbr(conv.oo);
-						//compteur += ft_putnbr(conv.oo);
 					}
 					format++;
 				}
@@ -459,15 +449,12 @@ int		ft_printf(char const *format, ...)
 						compteur += ft_putstr("0x");
 					if (conv.flags.point == 1)
 					{
-						//printf("%s\n", "test");
 						sub_p = conv.flags.precision - ft_strlen(conv_hexa_X(conv.x));
 						sub_p = (sub_p >= 0) ? sub_p : 0;
-						//printf("%d\n", sub_p);
 						if (conv.flags.precision > 0)
 							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa_X(conv.x)) + sub_p));
 						compteur += print_zero(sub_p);
 					}
-					//ft_nb_digit_u(conv.x, conv.flags);
 					if (conv.flags.point == 1 && conv.flags.precision <= 0)
 						;
 					else
@@ -484,14 +471,12 @@ int		ft_printf(char const *format, ...)
 						compteur += ft_putstr("0X");
 					if (conv.flags.point == 1)
 					{
-						//printf("%s\n", "test");
 						sub_p = conv.flags.precision - ft_strlen(conv_hexa_X(conv.xx));
 						sub_p = (sub_p > 0) ? sub_p : 0;
 						if (conv.flags.precision > 0)
 							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa_X(conv.xx)) + sub_p));
 						compteur += print_zero(sub_p);
 					}
-					//ft_nb_digit_u(conv.xx, conv.flags);
 					if (conv.flags.point == 1 && conv.flags.precision <= 0)
 						;
 					else
@@ -502,7 +487,6 @@ int		ft_printf(char const *format, ...)
 				{
 					//printf("%c\n", 'p');
 					conv.p = va_arg(conv.arg.ap, void*);
-					//printf("%d %d %d %d %d\n",conv.flags.zero, conv.flags.moins, conv.flags.largeur, conv.flags.point, conv.flags.precision);
 					if (conv.p == 0)
 					{
 
@@ -523,7 +507,7 @@ int		ft_printf(char const *format, ...)
 								compteur += print_zero(conv.flags.precision - ft_strlen(conv_hexa((unsigned int)conv.p)));
 						}
 					}
-					else if (conv.flags.fl == 1)
+					else if (conv.flags.fl == 1 || conv.flags.espace == 1 || conv.flags.plus == 1)
 					{
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
 							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
@@ -565,7 +549,6 @@ int		ft_printf(char const *format, ...)
 			{
 				compteur += ft_putchar('%');
 			}
-			//printf("test2 %d / %d\n", check_flag(s1[i]), ft_isdigit(s1[i]));
 			if (s1[i + 1] == ' ' && s1[i + 2] == '%')
 			{
 				compteur += ft_putchar('%');
@@ -582,15 +565,12 @@ int		ft_printf(char const *format, ...)
 			}
 			else if (check_flag(s1[i]) == 0)
 			{
-				//printf("%s\n", "Test");
 				compteur += ft_putchar(s1[i]);
 				i++;
 			}
 			else
 				i += 2;
-			//printf("ifend i = %d\n", i);
 		}
-		//printf("fin i = %d\n", i);
 	}
 	return (compteur);
 }
