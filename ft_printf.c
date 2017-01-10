@@ -288,7 +288,9 @@ int		ft_printf(char const *format, ...)
 					{
 						compteur += ft_putchar(' ');
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
+						{
 							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
+						}
 					}
 					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1 && conv.flags.espace == 0)
 					{
@@ -302,7 +304,10 @@ int		ft_printf(char const *format, ...)
 							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + 1 + sub_p));
 						}
 						else
-							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
+						{
+							//printf("%d\n", conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
+							compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
+						}
 					}
 					else if (conv.d < 0)
 					{
@@ -419,7 +424,7 @@ int		ft_printf(char const *format, ...)
 					else
 					{
 						conv.oo = conv_octal(conv.oo);
-						if (conv.oo > 0 && conv.flags.htag == 1)
+						if (conv.flags.htag == 1)
 							compteur += ft_putchar('0');
 						if (conv.flags.point == 1)
 						{
