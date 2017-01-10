@@ -21,3 +21,13 @@ size_t		ft_strlen(char const *s)
 		i++;
 	return (i);
 }
+
+size_t		ft_strlen_for_wchar(wchar_t const *s)
+{
+	size_t i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}

@@ -26,3 +26,19 @@ int	ft_putstr(char const *s)
 	}
 	return (rt);
 }
+
+int	ft_putnstr(char const *s, size_t size)
+{
+	int i;
+	int rt;
+
+	i = 0;
+	rt = 0;
+	while (s != NULL && s[i] != '\0' && size > 0)
+	{
+		rt += ft_putchar(s[i]);
+		size--;
+		i++;
+	}
+	return (rt);
+}

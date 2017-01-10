@@ -178,9 +178,11 @@ int		ft_printf(char const *format, ...)
 	int					k;
 	unsigned int		compteur;
 	int					sub_p;
+	int					sub_for_s;
 
 	i = 0;
 	sub_p = 0;
+	sub_for_s = 0;
 	compteur = 0;	s1 = (char *)format;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(format) + 1);
 	va_start(conv.arg.ap, format);
@@ -214,10 +216,22 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 's')
 			{
 				conv.s = va_arg(conv.arg.ap, char*);
+				if (conv.flags.point == 1 && conv.flags.precision < ft_strlen(conv.s))
+					sub_for_s = conv.flags.precision;
+				else
+					sub_for_s = ft_strlen(conv.s);
 				if (conv.flags.largeur > 0 && conv.flags.zero == 1)
-					compteur += print_zero(conv.flags.largeur - ft_strlen(conv.s));
+					compteur += print_zero(conv.flags.largeur - sub_for_s);
+				if (conv.flags.largeur > 0 && conv.flags.zero == 0)
+					compteur += print_space(conv.flags.largeur - sub_for_s);
 				if (conv.s != NULL)
-					compteur += ft_putstr(conv.s);
+				{
+					//printf("%d %d %d %d %d\n",conv.flags.zero, conv.flags.moins, conv.flags.largeur, conv.flags.point, conv.flags.precision);
+					if (conv.flags.point == 1 && conv.flags.precision < ft_strlen(conv.s))
+						compteur += ft_putnstr(conv.s, conv.flags.precision);
+					else
+						compteur += ft_putstr(conv.s);
+				}
 				else
 					compteur += ft_putstr("(null)");
 				format++;
@@ -225,6 +239,14 @@ int		ft_printf(char const *format, ...)
 			if (s1[i + 1] == 'S')
 			{
 				conv.ss = va_arg(conv.arg.ap, wchar_t*);
+				/*if (conv.flags.point == 1 && conv.flags.precision < ft_strlen_for_wchar(conv.ss))
+					sub_for_s = conv.flags.precision;
+				else
+					sub_for_s = ft_strlen_for_wchar(conv.ss);
+				if (conv.flags.largeur > 0 && conv.flags.zero == 1)
+					compteur += print_zero(conv.flags.largeur - sub_for_s);
+				if (conv.flags.largeur > 0 && conv.flags.zero == 0)
+					compteur += print_space(conv.flags.largeur - sub_for_s);*/
 				if (conv.ss != NULL)
 				{
 					while (conv.ss[k] != '\0')

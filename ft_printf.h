@@ -73,7 +73,9 @@ typedef struct	s_conv
 int		ft_printf(char const *format, ...);
 int		ft_putchar(char c);
 int		ft_putstr(char const *s);
+int		ft_putnstr(char const *s, size_t size);
 size_t	ft_strlen(char const *s);
+size_t	ft_strlen_for_wchar(wchar_t const *s);
 void	ft_bzero(void *s, size_t n);
 
 int		ft_atoi(char const *str);
