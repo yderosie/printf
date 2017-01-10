@@ -40,13 +40,14 @@ int main(void)
 //	ft_printf("%15.4d", -42);
 //	ft_printf("%.4u", 42);
 //	ft_printf("%+03d", 0);
-	ft_printf("%4.15x", 42424242);
+//	ft_printf("%4.15x", 42424242);
 //	ft_printf("%+d", 42);
 //	printf("%+d", 42);
 //	printf("%s\n", 1);
 //	ft_printf("%lo, %lo\n", 0, 18446744073709551615);
 //	printf("%lo, %lo\n", 0, 18446744073709551615);
 //	printf("\n");
+	ft_printf("% Zoooo\n");
 //	printf("%D\n", LONG_MIN);
 //	ft_printf("%D\n", LONG_MIN);
 /*	ft_printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",
