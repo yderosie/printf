@@ -126,7 +126,7 @@ ll		diff_return(t_conv *conv)
 
 ull		diff_u_return(t_conv *conv)
 {
-	//printf("%d%d%d%d%d%d\n", conv->flags.fhh,conv->flags.fh,conv->flags.fl,conv->flags.fll,conv->flags.j,conv->flags.z);
+	//printf("\n[%d%d%d%d%d%d]\n", conv->flags.fhh,conv->flags.fh,conv->flags.fl,conv->flags.fll,conv->flags.j,conv->flags.z);
 	if (conv->flags.fhh == 1)
 		return ((unsigned char)va_arg(conv->arg.ap, unsigned int));
 	if (conv->flags.fh == 1)

@@ -364,12 +364,12 @@ int		ft_printf(char const *format, ...)
 							compteur += print_space(conv.flags.largeur - (ft_nb_digit_u(conv.u, conv.flags) + sub_p));
 						compteur += print_zero(sub_p);
 					}
-					//ft_nb_digit_u(conv.u, conv.flags);
+
+					//printf("%lu\n", conv.u);
 					if (conv.flags.point == 1 && conv.flags.precision <= 0)
 						;
 					else
-						compteur += ft_putnbr(conv.u);
-					//compteur += ft_putnbr_u(conv.u);
+						compteur += ft_putnbr_u(conv.u);
 					format++;
 				}
 				if (s1[i + 1] == 'U')
@@ -402,7 +402,7 @@ int		ft_printf(char const *format, ...)
 					if (conv.flags.point == 1 && conv.flags.precision <= 0)
 						;
 					else
-						compteur += ft_putnbr(conv.o);
+						compteur += ft_putnbr_u(conv.o);
 					format++;
 				}
 				if (s1[i + 1] == 'O')
@@ -430,7 +430,7 @@ int		ft_printf(char const *format, ...)
 						if (conv.flags.point == 1 && conv.flags.precision <= 0)
 							;
 						else
-							compteur += ft_putnbr(conv.oo);
+							compteur += ft_putnbr_u(conv.oo);
 					}
 					format++;
 				}
