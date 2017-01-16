@@ -74,6 +74,48 @@ char	if_forest_hexa(unsigned int k)
 		return ('f');
 }
 
+int		precision_for_S(wchar_t c, unsigned int rt, t_flags flags)
+{
+	if (c <= 0x7F)
+		rt += 1;
+	else if (c <= 0x7FF)
+		rt += 2;
+	else if (c <= 0xFFFF)
+		rt += 3;
+	else
+		rt += 4;
+	return (rt);
+}
+
+int		diff_precision_s(wchar_t *s, t_flags flags)
+{
+	int len;
+	int i;
+
+	len = 0;
+	i = 1;
+	if (precision_for_S(s[0], len, flags) <= flags.precision)
+	{
+		len = precision_for_S(s[0], len, flags);
+		//printf("{(len 0 = %d) c = %C}\n", len, s[0]);
+		while (s[i] != '\0' && len <= flags.precision)
+		{
+			len = precision_for_S(s[i++], len, flags);
+			//printf("{[ i == %d]}\n", i);
+		}
+		//printf("{(len 1 = %d) c = %C}\n", len, s[i - 1]);
+		if (len > flags.precision)
+		{
+			len = len - precision_for_S(s[i - 1], 0, flags);
+			return (flags.precision + (len - flags.precision));
+		}
+		//printf("(len 2 = %d)\n", len);
+	}
+	//printf("{return = %d}\n", len + (flags.precision - len));
+	return (flags.precision);
+
+}
+
 size_t	tab_0(char *s1, char *tab)
 {
 	int		i;
@@ -239,21 +281,29 @@ int		ft_printf(char const *format, ...)
 				if (s1[i + 1] == 'S')
 				{
 					//printf("%c\n", 'S');
+					int len;
+					len = 0;
 					conv.ss = va_arg(conv.arg.ap, wchar_t*);
 					if (conv.ss != NULL)
 					{
+						if (conv.flags.point == 1 && conv.flags.precision < ft_strlen_for_wchar(conv.ss))
+							sub_for_s = /*conv.flags.precision;*/ diff_precision_s(conv.ss, conv.flags);
+						else
+							sub_for_s = ft_strlen_for_wchar(conv.ss);
 						if (conv.flags.largeur > 0 && conv.flags.zero == 1 && conv.flags.moins == 0)
-							compteur += print_zero(conv.flags.largeur - ft_strlen_for_wchar(conv.ss));
+							compteur += print_zero(conv.flags.largeur - sub_for_s);
 						if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 0)
-							compteur += print_space(conv.flags.largeur - ft_strlen_for_wchar(conv.ss));
+							compteur += print_space(conv.flags.largeur - sub_for_s);
+						//printf("%d\n", sub_for_s);
 						while (conv.ss[k] != '\0')
 						{
 							if (conv.flags.point == 0)
-								compteur += nb_octets_write(conv.ss[k]);
-							else if (conv.flags.point == 1 && compteur <= conv.flags.precision - 4)
-								compteur += nb_octets_write(conv.ss[k]);
+								len += nb_octets_write(conv.ss[k]);
+							else if (conv.flags.point == 1 && precision_for_S(conv.ss[k], len, conv.flags) <= conv.flags.precision)
+								len += nb_octets_write(conv.ss[k]);
 							k++;
 						}
+						compteur += len;
 						if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 1)
 							compteur += print_space(conv.flags.largeur - ft_strlen_for_wchar(conv.ss));
 					}
