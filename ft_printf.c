@@ -183,7 +183,8 @@ int		ft_printf(char const *format, ...)
 	i = 0;
 	sub_p = 0;
 	sub_for_s = 0;
-	compteur = 0;	s1 = (char *)format;
+	compteur = 0;
+	s1 = (char *)format;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(format) + 1);
 	va_start(conv.arg.ap, format);
 	va_copy(conv.arg.save, conv.arg.ap);
@@ -241,15 +242,20 @@ int		ft_printf(char const *format, ...)
 					conv.ss = va_arg(conv.arg.ap, wchar_t*);
 					if (conv.ss != NULL)
 					{
-						/*if (conv.flags.largeur > 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - ft_nb_digit(conv.ss, conv.flags));
-						if (conv.flags.largeur > 0 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.ss, conv.flags));*/
+						if (conv.flags.largeur > 0 && conv.flags.zero == 1 && conv.flags.moins == 0)
+							compteur += print_zero(conv.flags.largeur - ft_strlen_for_wchar(conv.ss));
+						if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 0)
+							compteur += print_space(conv.flags.largeur - ft_strlen_for_wchar(conv.ss));
 						while (conv.ss[k] != '\0')
 						{
-							compteur += nb_octets_write(conv.ss[k]);
+							if (conv.flags.point == 0)
+								compteur += nb_octets_write(conv.ss[k]);
+							else if (conv.flags.point == 1 && compteur <= conv.flags.precision - 4)
+								compteur += nb_octets_write(conv.ss[k]);
 							k++;
 						}
+						if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 1)
+							compteur += print_space(conv.flags.largeur - ft_strlen_for_wchar(conv.ss));
 					}
 					else
 					{
@@ -300,7 +306,7 @@ int		ft_printf(char const *format, ...)
 								compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
 						}
 					}
-					else if (conv.d < 0 && conv.d > -9223372036854775808)
+					else if (conv.d < 0 && conv.d > -9223372036854775807 - 1)
 					{
 						conv.d = -conv.d;
 						compteur += ft_putchar('-');
@@ -409,7 +415,7 @@ int		ft_printf(char const *format, ...)
 				{
 					//printf("%c\n", 'O');
 					conv.oo = va_arg(conv.arg.ap, uli);
-					if (conv.oo == 9223372036854775807)
+					if (conv.oo == 9223372036854775806 + 1)
 					{
 						ft_putstr("777777777777777777777");
 						compteur += 21;

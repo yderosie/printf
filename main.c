@@ -47,7 +47,8 @@ int main(void)
 //	ft_printf("%lo, %lo\n", 0, 18446744073709551615);
 //	printf("%lo, %lo\n", 0, 18446744073709551615);
 //	printf("\n");
-	ft_printf("% Zoooo\n");
+//	ft_printf("% Zoooo\n");
+	ft_printf("%030S", L"我是一只猫。");
 //	printf("%D\n", LONG_MIN);
 //	ft_printf("%D\n", LONG_MIN);
 /*	ft_printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",

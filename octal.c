@@ -21,9 +21,9 @@ unsigned int	count_c_octal(ull i)
 ull	conv_octal(ull j)
 {
 //	printf("%lu\n", j);
-	int remainder;
-	ll o;
-	ll i;
+	ull remainder;
+	ull o;
+	ull i;
 
 	o = 0;
 	i = 1;

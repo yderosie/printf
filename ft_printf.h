@@ -100,14 +100,13 @@ ull				diff_u_return(t_conv *conv);
 ll				diff_return(t_conv *conv);
 int				flags_present(t_conv *conv, char *s1, int i);
 ull				conv_octal(ull j);
-char			*conv_hexa(unsigned int j);
+char			*conv_hexa(ull j);
 int				ft_nb_digit_u(ull i, t_flags flags);
 int				ft_nb_digit(ll i, t_flags flags);
-char			*conv_hexa_X(unsigned int j);
-char			*conv_hexa_p_X_h(unsigned int j);
+char			*conv_hexa_X(ull j);
 int				ft_putnbr_u(ull n);
 int				ft_putnbr(ll n);
-unsigned int	count_c_hexa(unsigned int i);
+unsigned int	count_c_hexa(ull i);
 char			if_forest_hexa_X(unsigned int k);
 char			if_forest_hexa(unsigned int k);
 
