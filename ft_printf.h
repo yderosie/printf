@@ -107,7 +107,5 @@ char			*conv_hexa_X(ull j);
 int				ft_putnbr_u(ull n);
 int				ft_putnbr(ll n);
 unsigned int	count_c_hexa(ull i);
-char			if_forest_hexa_X(unsigned int k);
-char			if_forest_hexa(unsigned int k);
 
 #endif

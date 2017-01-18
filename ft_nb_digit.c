@@ -35,7 +35,7 @@ int		ft_nb_digit(ll i, t_flags flags)
 	k = i;
 	if (i < 0)
 	{
-		k =  -i;
+		k = -i;
 		j++;
 	}
 	while (k > 9)
@@ -45,11 +45,4 @@ int		ft_nb_digit(ll i, t_flags flags)
 	}
 	j++;
 	return (j);
-}
-
-void	ft_nb_digit_c(char *s, t_flags flags)
-{
-	int	i;
-
-	i = ft_strlen(s);
 }

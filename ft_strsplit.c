@@ -46,7 +46,7 @@ static char		**ft_strsplit_2(char const *s, char c)
 			i++;
 		if (s1[i] != '\0')
 			k++;
-	}	
+	}
 	return (s2);
 }
 

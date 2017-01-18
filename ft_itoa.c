@@ -15,7 +15,7 @@
 static char		*ft_nbr(ll n, ll *i)
 {
 	char	*s2;
-	ll 		j;
+	ll		j;
 	ll		m;
 	ll		save;
 

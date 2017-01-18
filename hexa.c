@@ -1,6 +1,42 @@
 
 #include "ft_printf.h"
 
+static char	if_forest_hexa_X(unsigned int k)
+{
+	if (k < 10)
+		return (k + '0');
+	else if (k == 10)
+		return ('A');
+	else if (k == 11)
+		return ('B');
+	else if (k == 12)
+		return ('C');
+	else if (k == 13)
+		return ('D');
+	else if (k == 14)
+		return ('E');
+	else
+		return ('F');
+}
+
+static char	if_forest_hexa(unsigned int k)
+{
+	if (k < 10)
+		return (k + '0');
+	else if (k == 10)
+		return ('a');
+	else if (k == 11)
+		return ('b');
+	else if (k == 12)
+		return ('c');
+	else if (k == 13)
+		return ('d');
+	else if (k == 14)
+		return ('e');
+	else
+		return ('f');
+}
+
 char	*conv_hexa_X(ull j)
 {
 	char			*s1;

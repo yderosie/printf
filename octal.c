@@ -20,7 +20,6 @@ unsigned int	count_c_octal(ull i)
 
 ull	conv_octal(ull j)
 {
-//	printf("%lu\n", j);
 	ull remainder;
 	ull o;
 	ull i;
@@ -34,6 +33,5 @@ ull	conv_octal(ull j)
 		o = o + (remainder * i);
 		i = i * 10;
 	}
-//	printf("%lu\n", o);
 	return (o);
 }
