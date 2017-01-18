@@ -562,50 +562,28 @@ int		ft_printf(char const *format, ...)
 						else
 						{
 							if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-								compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
+								compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
 							compteur += ft_putstr("0x0");
 							if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-								compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
+								compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
 							if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
-								compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
+								compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
 							if (conv.flags.point == 1 && conv.flags.precision > 0)
-								compteur += print_zero(conv.flags.precision - ft_strlen(conv_hexa((unsigned int)conv.p)));
+								compteur += print_zero(conv.flags.precision - ft_strlen(conv_hexa((ull)conv.p)));
 						}
-					}
-					else if (conv.flags.fl == 1 || conv.flags.espace == 1 || conv.flags.plus == 1)
-					{
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
-						compteur += ft_putstr("0x");
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
-						compteur += ft_putstr(conv_hexa((ull)conv.p));
-						if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
-					}
-					else if (conv.flags.point == 1 && conv.flags.precision > 1)
-					{
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
-						compteur += ft_putstr("0x");
-						if (conv.flags.point == 1 && conv.flags.precision > 0)
-								compteur += print_zero(conv.flags.precision - ft_strlen(conv_hexa((unsigned int)conv.p)));
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
-						compteur += ft_putstr(conv_hexa((ull)conv.p));
-						if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
 					}
 					else
 					{
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
+							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
 						compteur += ft_putstr("0x");
+						if (conv.flags.point == 1 && conv.flags.precision > 0)
+								compteur += print_zero(conv.flags.precision - ft_strlen(conv_hexa((ull)conv.p)));
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
+							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
 						compteur += ft_putstr(conv_hexa((ull)conv.p));
 						if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
+							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
 					}
 					format++;
 				}
