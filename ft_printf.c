@@ -248,10 +248,12 @@ int		ft_printf(char const *format, ...)
 		if (s1[i] == '%' && s1[i + 1] != '\0')
 		{
 			flags_initialization(&conv);
-			i += flags_present(&conv, s1 + i + 1, 0);
+			//printf("(avant i == %d)\n", i);
+			i += flags_present(&conv, s1 + i + 1, 0) + 1;
+			//printf("(qpres i == %d, %c)\n", i, s1[i]);
 			if (check_flag(s1[i]) == 1)
 			{
-				if (s1[i + 1] == 's' && conv.flags.fl == 0)
+				if (s1[i] == 's' && conv.flags.fl == 0)
 				{
 					//printf("%c\n", 's');
 					conv.s = va_arg(conv.arg.ap, char*);
@@ -278,7 +280,7 @@ int		ft_printf(char const *format, ...)
 						compteur += ft_putstr("(null)");
 					format++;
 				}
-				if (s1[i + 1] == 'S' || (s1[i + 1] == 's' && conv.flags.fl == 1))
+				if (s1[i] == 'S' || (s1[i] == 's' && conv.flags.fl == 1))
 				{
 					//printf("%c\n", 'S');
 					int len;
@@ -313,7 +315,7 @@ int		ft_printf(char const *format, ...)
 					}
 					format++;
 				}
-				if (s1[i + 1] == 'd' || s1[i + 1] == 'i')
+				if (s1[i] == 'd' || s1[i] == 'i')
 				{
 					//printf("%c\n", 'd');
 					conv.d = diff_return(&conv);
@@ -370,7 +372,7 @@ int		ft_printf(char const *format, ...)
 						compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
 					format++;
 				}
-				if (s1[i + 1] == 'D')
+				if (s1[i] == 'D')
 				{
 					//printf("%c\n", 'D');
 					conv.dd = va_arg(conv.arg.ap, li);
@@ -379,7 +381,7 @@ int		ft_printf(char const *format, ...)
 						compteur = 20;
 					format++;
 				}
-				if (s1[i + 1] == 'c')
+				if (s1[i] == 'c')
 				{
 					//printf("%c\n", 'c');
 					if (conv.d > 0 && conv.flags.fl == 1)
@@ -400,14 +402,14 @@ int		ft_printf(char const *format, ...)
 					}
 					format++;
 				}
-				if (s1[i + 1] == 'C')
+				if (s1[i] == 'C')
 				{
 					//printf("%c\n", 'C');
 					conv.cc = va_arg(conv.arg.ap, wint_t);
 					compteur += nb_octets_write(conv.cc);
 					format++;
 				}
-				if (s1[i + 1] == 'u')
+				if (s1[i] == 'u')
 				{
 					//printf("%c\n", 'u');
 					conv.u = diff_u_return(&conv);
@@ -428,7 +430,7 @@ int		ft_printf(char const *format, ...)
 						compteur += ft_putnbr_u(conv.u);
 					format++;
 				}
-				if (s1[i + 1] == 'U')
+				if (s1[i] == 'U')
 				{
 					//printf("%c\n", 'U');
 					conv.uu = va_arg(conv.arg.ap, uli);
@@ -436,7 +438,7 @@ int		ft_printf(char const *format, ...)
 					compteur += ft_putnbr_u(conv.uu);
 					format++;
 				}
-				if (s1[i + 1] == 'o')
+				if (s1[i] == 'o')
 				{
 					//printf("%c\n", 'o');
 					//printf("[%llu]\n", va_arg(conv.arg.ap, ull));
@@ -465,7 +467,7 @@ int		ft_printf(char const *format, ...)
 						format++;
 					}
 				}
-				if (s1[i + 1] == 'O')
+				if (s1[i] == 'O')
 				{
 					conv.oo = va_arg(conv.arg.ap, uli);
 					if (conv.oo == 9223372036854775806 + 1)
@@ -496,7 +498,7 @@ int		ft_printf(char const *format, ...)
 					}
 					format++;
 				}
-				if (s1[i + 1] == 'x')
+				if (s1[i] == 'x')
 				{
 					//printf("%c\n", 'x');
 					conv.x = diff_u_return(&conv);
@@ -523,7 +525,7 @@ int		ft_printf(char const *format, ...)
 						compteur += ft_putstr(conv_hexa(conv.x));
 					format++;
 				}
-				if (s1[i + 1] == 'X')
+				if (s1[i] == 'X')
 				{
 					//printf("%c\n", 'X');
 					conv.xx = diff_u_return(&conv);
@@ -546,7 +548,7 @@ int		ft_printf(char const *format, ...)
 						compteur += ft_putstr(conv_hexa_X(conv.xx));
 					format++;
 				}
-				if (s1[i + 1] == 'p')
+				if (s1[i] == 'p')
 				{
 					//printf("%c\n", 'p');
 					conv.p = va_arg(conv.arg.ap, void*);
@@ -577,7 +579,7 @@ int		ft_printf(char const *format, ...)
 						compteur += ft_putstr("0x");
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
 							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
-						compteur += ft_putstr(conv_hexa((unsigned int)conv.p));
+						compteur += ft_putstr(conv_hexa((ull)conv.p));
 						if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
 							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
 					}
@@ -590,7 +592,7 @@ int		ft_printf(char const *format, ...)
 								compteur += print_zero(conv.flags.precision - ft_strlen(conv_hexa((unsigned int)conv.p)));
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
 							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
-						compteur += ft_putstr(conv_hexa((unsigned int)conv.p));
+						compteur += ft_putstr(conv_hexa((ull)conv.p));
 						if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
 							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 2));
 					}
@@ -598,17 +600,17 @@ int		ft_printf(char const *format, ...)
 					{
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
 							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
-						compteur += ft_putstr("0x7fff");
+						compteur += ft_putstr("0x");
 						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
 							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
-						compteur += ft_putstr(conv_hexa((unsigned int)conv.p));
+						compteur += ft_putstr(conv_hexa((ull)conv.p));
 						if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
 							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((unsigned int)conv.p)) + 6));
 					}
 					format++;
 				}
 			}
-			if (s1[i + 1] == '%')
+			if (s1[i] == '%')
 			{
 				if (conv.flags.largeur > 0 && conv.flags.zero == 1)
 					compteur += print_zero(conv.flags.largeur - 1);
@@ -616,12 +618,13 @@ int		ft_printf(char const *format, ...)
 					compteur += print_space(conv.flags.largeur - 1);
 				compteur += ft_putchar('%');
 			}
-			if (s1[i + 1] == ' ' && s1[i + 2] == '%')
+			//printf("[%c, %d]\n", s1[i], i);
+			if (s1[i] == ' ' && s1[i + 2] == '%')
 			{
 				compteur += ft_putchar('%');
 				i += 3;
 			}
-			else if (s1[i] == ' ' && check_flag(s1[i + 1]) != 1)
+			else if (s1[i] == ' ' && check_flag(s1[i]) != 1)
 			{
 				i++;
 			}
@@ -632,11 +635,18 @@ int		ft_printf(char const *format, ...)
 			}
 			else if (check_flag(s1[i]) == 0)
 			{
+				if (conv.flags.largeur > 0 && conv.flags.zero == 1)
+					compteur += print_zero(conv.flags.largeur - 1);
+				if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 0)
+					compteur += print_space(conv.flags.largeur - 1);
+				//printf("[%c, %d]\n", s1[i], i);
 				compteur += ft_putchar(s1[i]);
+				if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 1)
+					compteur += print_space(conv.flags.largeur - 1);
 				i++;
 			}
 			else
-				i += 2;
+				i++;
 		}
 	}
 	return (compteur);

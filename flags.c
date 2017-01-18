@@ -6,7 +6,8 @@ int check_flag(char c)
 	if (c != 'h' && c != 'l' && c != 'j' && c != '#' && c != '+' && c != ' ' &&
 		c != 'z' && c != 's' && c != 'S' && c != 'p' && c != 'd' && c != 'D' &&
 		c != 'i' && c != 'o' && c != 'O' && c != 'u' && c != 'U' && c != 'x' &&
-		c != 'X' && c != 'c' && c != 'C' && c != '\0' && c != '%' && c != '	' && ft_isdigit(c) == 0 && c != '.')
+		c != 'X' && c != 'c' && c != 'C' && c != '\0' && c != '%' && c != '	' && 
+		ft_isdigit(c) == 0 && c != '.' && c != '-')
 	{
 		return (0);
 	}
@@ -59,8 +60,9 @@ int		flags_present(t_conv *conv, char *s1, int i)
 	while (s1[i] != 's' && s1[i] != 'S' && s1[i] != 'p' && s1[i] != 'd'
 		&& s1[i] != 'D' && s1[i] != 'i' && s1[i] != 'o' && s1[i] != 'O'
 			&& s1[i] != 'u' && s1[i] != 'U' && s1[i] != 'x' && s1[i] != 'X' &&
-			s1[i] != 'c' && s1[i] != 'C' && s1[i] != '\0' && s1[i] != '%')
+			s1[i] != 'c' && s1[i] != 'C' && s1[i] != '\0' && s1[i] != '%' && check_flag(s1[i]) == 1)
 	{
+		//printf("(c == %c)\n", s1[i]);
 		if (s1[i] == '0' && ft_isdigit(s1[i - 1]) == 0)
 			conv->flags.zero = 1; 
 		if (s1[i] == '.')
@@ -82,6 +84,7 @@ int		flags_present(t_conv *conv, char *s1, int i)
 		flags_present_2(conv, s1, i);
 		i++;
 	}
+	//printf("(final c == %c, %d)\n", s1[i], i);
 	conv->flags.largeur = ft_atoi(s3);
 	//printf("%d\n", conv->flags.largeur);
 	return (i);
