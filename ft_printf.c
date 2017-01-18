@@ -251,7 +251,7 @@ int		ft_printf(char const *format, ...)
 			i += flags_present(&conv, s1 + i + 1, 0);
 			if (check_flag(s1[i]) == 1)
 			{
-				if (s1[i + 1] == 's')
+				if (s1[i + 1] == 's' && conv.flags.fl == 0)
 				{
 					//printf("%c\n", 's');
 					conv.s = va_arg(conv.arg.ap, char*);
@@ -278,7 +278,7 @@ int		ft_printf(char const *format, ...)
 						compteur += ft_putstr("(null)");
 					format++;
 				}
-				if (s1[i + 1] == 'S')
+				if (s1[i + 1] == 'S' || (s1[i + 1] == 's' && conv.flags.fl == 1))
 				{
 					//printf("%c\n", 'S');
 					int len;
@@ -439,32 +439,42 @@ int		ft_printf(char const *format, ...)
 				if (s1[i + 1] == 'o')
 				{
 					//printf("%c\n", 'o');
+					//printf("[%llu]\n", va_arg(conv.arg.ap, ull));
 					conv.o = diff_u_return(&conv);
-					conv.o = conv_octal(conv.o);
-					if (conv.o > 0 && conv.flags.htag == 1 && conv.flags.precision == 0)
-						compteur += ft_putchar('0');
-					if (conv.flags.point == 1)
+					if (conv.o == 18446744073709551615)
 					{
-						sub_p = conv.flags.precision - ft_nb_digit(conv.o, conv.flags);
-						sub_p = (sub_p > 0) ? sub_p : 0;
-						if (conv.flags.precision > 0)
-							compteur += print_space(conv.flags.largeur - (ft_nb_digit_u(conv.o, conv.flags) + sub_p));
-						compteur += print_zero(sub_p);
+						compteur += ft_putstr("1777777777777777777777");
 					}
-					if (conv.flags.point == 1 && conv.flags.precision <= 0 && conv.flags.htag == 0)
-						;
 					else
-						compteur += ft_putnbr_u(conv.o);
-					format++;
+					{
+						conv.o = conv_octal(conv.o);
+						if (conv.o > 0 && conv.flags.htag == 1 && conv.flags.precision == 0)
+							compteur += ft_putchar('0');
+						if (conv.flags.point == 1)
+						{
+							sub_p = conv.flags.precision - ft_nb_digit(conv.o, conv.flags);
+							sub_p = (sub_p > 0) ? sub_p : 0;
+							if (conv.flags.precision > 0)
+								compteur += print_space(conv.flags.largeur - (ft_nb_digit_u(conv.o, conv.flags) + sub_p));
+							compteur += print_zero(sub_p);
+						}
+						if (conv.flags.point == 1 && conv.flags.precision <= 0 && conv.flags.htag == 0)
+							;
+						else
+							compteur += ft_putnbr_u(conv.o);
+						format++;
+					}
 				}
 				if (s1[i + 1] == 'O')
 				{
-					//printf("%c\n", 'O');
 					conv.oo = va_arg(conv.arg.ap, uli);
 					if (conv.oo == 9223372036854775806 + 1)
 					{
-						ft_putstr("777777777777777777777");
-						compteur += 21;
+						compteur += ft_putstr("777777777777777777777");
+					}
+					else if (conv.oo == -9223372036854775808)
+					{
+						compteur += ft_putstr("1000000000000000000000");
 					}
 					else
 					{
