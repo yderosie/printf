@@ -72,7 +72,6 @@ int		diff_precision_s(wchar_t *s, t_flags flags)
 		}
 	}
 	return (flags.precision);
-
 }
 
 size_t	tab_0(char *s1, char *tab)
@@ -148,14 +147,14 @@ size_t		nb_octets_write(wchar_t c)
 		return (nb_octets_write_2(i));
 	else
 		return (-1);
-	return(0);
+	return (0);
 }
 
-char *ft_inverse(char *s)
+char	*ft_inverse(char *s)
 {
-	int i;
-	int j;
-	char *s2;
+	int		i;
+	int		j;
+	char	*s2;
 
 	i = 0;
 	j = ft_strlen(s) - 1;
@@ -310,9 +309,8 @@ int		ft_printf(char const *format, ...)
 								compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d, conv.flags) + sub_p));
 						}
 					}
-					else if (conv.d < 0 && conv.d > -9223372036854775807)
+					else if (conv.d < 0 && ft_nb_digit(conv.d,conv.flags) < conv.flags.precision)
 					{
-						//printf("%s\n", test);
 						conv.d = -conv.d;
 						compteur += ft_putchar('-');
 					}
