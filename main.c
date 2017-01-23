@@ -50,6 +50,8 @@ int main(void)
 //	ft_printf("% Zoooo\n");
 //	ft_printf("%030S", L"我是一只猫。");
 //	ft_printf("{%05.Z}", 0);
+	ft_printf("{ft_printf == %lld}\n", -9223372036854775807);
+	printf("{printf == %ld}\n", -9223372036854775807);
 //	printf("%D\n", LONG_MIN);
 //	ft_printf("%D\n", LONG_MIN);
 /*	ft_printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",

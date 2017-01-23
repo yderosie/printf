@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hexa.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yderosie <yderosie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/01/23 12:06:33 by yderosie          #+#    #+#             */
+/*   Updated: 2017/01/23 12:06:34 by yderosie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	if_forest_hexa_X(unsigned int k)
+static char		if_forest_hexa_x(unsigned int k)
 {
 	if (k < 10)
 		return (k + '0');
@@ -19,7 +30,7 @@ static char	if_forest_hexa_X(unsigned int k)
 		return ('F');
 }
 
-static char	if_forest_hexa(unsigned int k)
+static char		if_forest_hexa(unsigned int k)
 {
 	if (k < 10)
 		return (k + '0');
@@ -37,7 +48,7 @@ static char	if_forest_hexa(unsigned int k)
 		return ('f');
 }
 
-char	*conv_hexa_X(ull j)
+char			*conv_hexa_x(ull j)
 {
 	char			*s1;
 	int				i;
@@ -46,20 +57,20 @@ char	*conv_hexa_X(ull j)
 
 	i = 0;
 	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j)));
-	while  (j >= 16)
+	while (j >= 16)
 	{
 		k = j;
 		j = j / 16;
 		k = (k % 16);
-		s1[i] = if_forest_hexa_X(k);
+		s1[i] = if_forest_hexa_x(k);
 		i++;
 	}
-	s1[i] = if_forest_hexa_X(j);
+	s1[i] = if_forest_hexa_x(j);
 	s2 = ft_inverse(s1);
 	return (s2);
 }
 
-char	*conv_hexa(ull j)
+char			*conv_hexa(ull j)
 {
 	char			*s1;
 	int				i;
@@ -68,7 +79,7 @@ char	*conv_hexa(ull j)
 
 	i = 0;
 	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j)));
-	while  (j >= 16)
+	while (j >= 16)
 	{
 		k = j;
 		j = j / 16;

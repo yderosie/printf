@@ -1,37 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   octal.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yderosie <yderosie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/01/23 12:07:43 by yderosie          #+#    #+#             */
+/*   Updated: 2017/01/23 12:07:44 by yderosie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
-unsigned int	count_c_octal(ull i)
+char *conv_octal(ull j)
 {
-	ull j;
-	ull k;
+	ull		remainder;
+	char	*s1;
+	int		i;
 
-	j = 0;
-	while (j >= 8)
-	{
-		k = i;
-		i = i / 8;
-		k = (k % 8);
-		j++;
-	}
-	j += 2;
-	return (j);
-}
-
-ull	conv_octal(ull j)
-{
-	ull remainder;
-	ull o;
-	ull i;
-
-	o = 0;
-	i = 1;
+	i = 0;
+	s1 = (char *)malloc(sizeof(char) * 40);
+	s1[0] = '0';
 	while (j != 0)
 	{
 		remainder = j % 8;
 		j = j / 8;
-		o = o + (remainder * i);
-		i = i * 10;
+		if (remainder == 0)
+			s1[i++] = '0';
+		else
+			s1[i++] = remainder + '0';
 	}
-	return (o);
+	s1 = ft_inverse(s1);
+	return (s1);
 }

@@ -21,10 +21,10 @@
 # include <stdarg.h>
 # include <wchar.h>
 
-typedef long int			li;
-typedef unsigned long int	uli;
-typedef long long			ll;
-typedef unsigned long long	ull;
+typedef long int				li;		/* t_li */
+typedef unsigned long int		uli;	/* t_uli */
+typedef long long int			ll;		/* t_ll */
+typedef unsigned long long int	ull;	/* t_ull */
 
 typedef struct	s_arg
 {
@@ -32,7 +32,7 @@ typedef struct	s_arg
 	va_list save;
 }				t_arg;
 
-typedef struct 	s_flags
+typedef struct	s_flags
 {
 	int		htag;
 	int		zero;
@@ -59,8 +59,8 @@ typedef struct	s_conv
 	li				dd;
 	char			c;
 	wchar_t			cc;
-	ull				o;
-	uli				oo;
+	char			*o;
+	char			*oo;
 	void			*p;
 	ull				x;
 	ull				xx;
@@ -91,7 +91,8 @@ char	*ft_itoa_u(ull n);
 int		ft_isdigit(int c);
 void	ft_nb_digit_c(char *s, t_flags flags);
 
-int				check_flag(char c);
+int				check_all_option(char c);
+int				check_conv(char c);
 
 size_t			binary_to_decimal(char *s);
 char			*binary(unsigned int j);
@@ -99,11 +100,11 @@ void			flags_initialization(t_conv *conv);
 ull				diff_u_return(t_conv *conv);
 ll				diff_return(t_conv *conv);
 int				flags_present(t_conv *conv, char *s1, int i);
-ull				conv_octal(ull j);
+char			*conv_octal(ull j);
 char			*conv_hexa(ull j);
 int				ft_nb_digit_u(ull i, t_flags flags);
 int				ft_nb_digit(ll i, t_flags flags);
-char			*conv_hexa_X(ull j);
+char			*conv_hexa_x(ull j);
 int				ft_putnbr_u(ull n);
 int				ft_putnbr(ll n);
 unsigned int	count_c_hexa(ull i);

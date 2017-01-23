@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yderosie <yderosie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/01/23 11:41:55 by yderosie          #+#    #+#             */
+/*   Updated: 2017/01/23 11:41:58 by yderosie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
 unsigned int	count_c_bin(unsigned int i)
 {
-	unsigned int j;
-	unsigned int k;
+	unsigned int	j;
+	unsigned int	k;
 
 	j = 0;
 	while (i >= 2)
@@ -18,7 +29,7 @@ unsigned int	count_c_bin(unsigned int i)
 	return (j);
 }
 
-size_t		binary_to_decimal(char *s)
+size_t			binary_to_decimal(char *s)
 {
 	char	*s1;
 	int		i;
@@ -47,7 +58,7 @@ size_t		binary_to_decimal(char *s)
 	return (write(1, &j, 1));
 }
 
-char	*binary(unsigned int j)
+char			*binary(unsigned int j)
 {
 	char			*s1;
 	int				i;
@@ -56,7 +67,7 @@ char	*binary(unsigned int j)
 
 	i = 0;
 	s1 = (char *)malloc(sizeof(char) * (count_c_bin(j)));
-	while  (j >= 2)
+	while (j >= 2)
 	{
 		k = j;
 		j = j / 2;

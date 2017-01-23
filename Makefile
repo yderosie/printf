@@ -21,8 +21,6 @@ FILES = ft_printf \
 		ft_isalpha \
 		ft_isdigit \
 		ft_itoa \
-		ft_itoa_u \
-		ft_itoa_uli \
 		ft_nb_digit \
 		ft_putchar \
 		ft_putnbr \
