@@ -25,7 +25,7 @@ int main(void)
 //	s1 = "11111111       00000000 10101010";
 //	printf("%");
 //	printf("%d\n", ft_printf("{%010d}", -42));
-/*	ft_printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c \
+	ft_printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c \
 %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\
 %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",
 ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-',
@@ -34,7 +34,7 @@ int main(void)
 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e',
 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-'t', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}');*/
+'t', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}');
 //	ft_printf("{%0-3d}",0);
 //	printf("%d\n",ft_printf("{%15.4d}", 424242));
 //	ft_printf("%15.4d", -42);
@@ -50,8 +50,8 @@ int main(void)
 //	ft_printf("% Zoooo\n");
 //	ft_printf("%030S", L"我是一只猫。");
 //	ft_printf("{%05.Z}", 0);
-	ft_printf("{ft_printf == %lld}\n", -9223372036854775807);
-	printf("{printf == %ld}\n", -9223372036854775807);
+//	ft_printf("{ft_printf == %015D}\n", 20);
+//	printf("{printf == %015D}\n", 20);
 //	printf("%D\n", LONG_MIN);
 //	ft_printf("%D\n", LONG_MIN);
 /*	ft_printf("%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S",

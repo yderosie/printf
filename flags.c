@@ -28,6 +28,14 @@ int		check_all_option(char c)
 
 int		check_conv(char c)
 {
+	/*static char *conv = "sSpdDioOuUxXcC%";
+	int i;
+
+	i = -1;
+	while (conv[++i])
+		if (conv[i] == c)
+			return (0);
+	return (1);*/
 	if (c != 's' && c != 'S' && c != 'p' && c != 'd' && c != 'D' && c != 'i' &&
 		c != 'o' && c != 'O' && c != 'u' && c != 'U' && c != 'x' && c != 'X' &&
 		c != 'c' && c != 'C' && c != '\0' && c != '%')
@@ -66,7 +74,9 @@ void	flags_present_2(t_conv *conv, char *s1, int i)
 		conv->flags.z = 1;
 }
 
-int		flags_present(t_conv *conv, char *s1, int i)
+
+
+/*int		flags_present(t_conv *conv, char *s1, int i)
 {
 	char	*s2;
 	char	*s3;
@@ -91,6 +101,56 @@ int		flags_present(t_conv *conv, char *s1, int i)
 				s2[j] = s1[i + j + 1];
 			conv->flags.precision = ft_atoi(s2);
 			i += j;
+		}
+		else if (ft_isdigit(s1[i]) != 0)
+			s3[k++] = s1[i];
+		if (s1[i] == '-')
+			conv->flags.moins = 1;
+		flags_present_2(conv, s1, i);
+		i++;
+	}
+	conv->flags.largeur = ft_atoi(s3);
+	return (i);
+}*/
+
+int		parse_precision(t_conv *conv, char *s1, int i)
+{
+	static char	*s2;
+	static int a = 0;
+	int		j;
+
+	j = -1;
+	if (a == 0)
+	{
+		a = 1;
+	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1));
+	}
+	conv->flags.point = 1;
+	while (ft_isdigit(s1[i + ++j + 1]))
+		s2[j] = s1[i + j + 1];
+	conv->flags.precision = ft_atoi(s2);
+	return (j);
+}
+
+int		flags_present(t_conv *conv, char *s1, int i)
+{
+	char	*s3;
+	int		k;
+
+	k = 0;
+	s3 = (char *)malloc(sizeof(char) * ft_strlen(s1));
+	if ((s1[i] == ' ' || s1[i] == '	' || s1[i] == '\0') &&
+		check_all_option(s1[i]) != 1)
+		return (i);
+	//dprintf(1, "test : %d\n", i);
+	while ((check_conv(s1[i]) == 0) && (check_all_option(s1[i]) == 1))
+	{
+
+		if ((s1[i] == '0') && (ft_isdigit(s1[i - 1]) == 0))
+			conv->flags.zero = 1;
+		if (s1[i] == '.')
+		{
+			i += parse_precision(conv, s1, i);
 		}
 		else if (ft_isdigit(s1[i]) != 0)
 			s3[k++] = s1[i];
