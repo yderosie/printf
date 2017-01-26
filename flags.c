@@ -82,24 +82,6 @@ int		flags_present(t_conv *conv, char *s1, int i)
 	return (i);
 }
 
-void	flags_initialization(t_conv *conv)
-{
-	conv->flags.zero = 0;
-	conv->flags.htag = 0;
-	conv->flags.espace = 0;
-	conv->flags.moins = 0;
-	conv->flags.plus = 0;
-	conv->flags.point = 0;
-	conv->flags.precision = 0;
-	conv->flags.largeur = 0;
-	conv->flags.fhh = 0;
-	conv->flags.fh = 0;
-	conv->flags.fl = 0;
-	conv->flags.fll = 0;
-	conv->flags.j = 0;
-	conv->flags.z = 0;
-}
-
 ll		diff_return(t_conv *conv)
 {
 	if (conv->flags.fhh == 1)

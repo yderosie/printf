@@ -32,7 +32,8 @@ FILES = ft_printf \
 		bin \
 		hexa \
 		octal \
-		check
+		check \
+		unicode
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJ = $(SRCS:%.c=obj/%.o)

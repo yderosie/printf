@@ -95,6 +95,8 @@ int				check_all_option(char c);
 int				check_conv(char c);
 int				check_flags(char c);
 
+size_t			nb_octets_write(wchar_t c);
+
 size_t			binary_to_decimal(char *s);
 char			*binary(unsigned int j);
 void			flags_initialization(t_conv *conv);
