@@ -18,7 +18,6 @@ CFLAGS =
 FILES = ft_printf \
 		ft_atoi \
 		ft_bzero \
-		ft_isalpha \
 		ft_isdigit \
 		ft_itoa \
 		ft_nb_digit \
@@ -26,7 +25,6 @@ FILES = ft_printf \
 		ft_putnbr \
 		ft_putstr \
 		ft_putwchar \
-		ft_putwstr \
 		ft_strcpy \
 		ft_strlen \
 		ft_strsplit \
