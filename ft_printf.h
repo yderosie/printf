@@ -79,23 +79,24 @@ size_t	ft_strlen_for_wchar(wchar_t const *s);
 void	ft_bzero(void *s, size_t n);
 
 int		ft_atoi(char const *str);
-//void	ft_putnbr_uli(uli n);
-//void	ft_putnbr_li(li n);
-//void	ft_putwstr(wchar_t const *s);
 size_t	ft_putwchar(wchar_t c);
 char	*ft_inverse(char *s);
 char	**ft_strsplit(char const *s, char c);
 char	*ft_strcpy(char *dst, char const *src);
-//char	*ft_itoa(ll n);
-//char	*ft_itoa_u(ull n);
 int		ft_isdigit(int c);
-//void	ft_nb_digit_c(char *s, t_flags flags);
 
 int				check_all_option(char c);
 int				check_conv(char c);
 int				check_flags(char c);
 
 size_t			nb_octets_write(wchar_t c);
+
+int				print_space(int i);
+int				print_zero(int i);
+
+int				diff_for_precision(int precision, int len, int negatif);
+int				precision_for_s(wchar_t c, unsigned int ret, t_flags flags);
+int				diff_precision_s(wchar_t *s, t_flags flags);
 
 size_t			binary_to_decimal(char *s);
 char			*binary(unsigned int j);
