@@ -12,44 +12,6 @@
 
 #include "ft_printf.h"
 
-int		check_all_option(char c)
-{
-
-	char *conv = "sSpdDioOuUxXcC%hlj#+ z.-0123456789";
-	int i;
-
-	i = -1;
-	while (conv[++i])
-		if (conv[i] == c)
-			return (1);
-	return (0);
-}
-
-int		check_flags(char c)
-{
-
-	char *conv = "hlj#+ z.-0123456789";
-	int i;
-
-	i = -1;
-	while (conv[++i])
-		if (conv[i] == c)
-			return (1);
-	return (0);
-}
-
-int		check_conv(char c)
-{
-	char *conv = "sSpdDioOuUxXcC%";
-	int i;
-
-	i = -1;
-	while (conv[++i])
-		if (conv[i] == c)
-			return (1);
-	return (0);
-}
-
 void	flags_present_2(t_conv *conv, char *s1, int i)
 {
 	if (s1[i] == 'h' && s1[i + 1] != 'h')
@@ -103,7 +65,7 @@ int		flags_present(t_conv *conv, char *s1, int i)
 	if ((s1[i] == ' ' || s1[i] == '	' || s1[i] == '\0') &&
 		check_all_option(s1[i]) != 1)
 		return (i);
-	while ((check_conv(s1[i]) == 0) && (check_flags(s1[i]) == 1) && s1[i] != '\0')
+	while (check_conv(s1[i]) == 0 && check_flags(s1[i]) == 1 && s1[i] != '\0')
 	{
 		if ((s1[i] == '0') && (ft_isdigit(s1[i - 1]) == 0))
 			conv->flags.zero = 1;
@@ -116,7 +78,7 @@ int		flags_present(t_conv *conv, char *s1, int i)
 		flags_present_2(conv, s1, i);
 		i++;
 	}
-		conv->flags.largeur = ft_atoi(s3);
+	conv->flags.largeur = ft_atoi(s3);
 	return (i);
 }
 

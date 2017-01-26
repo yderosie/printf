@@ -206,7 +206,7 @@ int		ft_printf(char const *format, ...)
 		{
 			flags_initialization(&conv);
 			i += flags_present(&conv, s1 + i + 1, 0) + 1;
-			if (check_all_option(s1[i]) == 1)
+			if (check_conv(s1[i]) == 1)
 			{
 				if (s1[i] == 's' && conv.flags.fl == 0)
 				{
@@ -487,15 +487,16 @@ int		ft_printf(char const *format, ...)
 							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
 					}
 				}
+				if (s1[i] == '%')
+				{
+					if (conv.flags.largeur > 0 && conv.flags.zero == 1)
+						compteur += print_zero(conv.flags.largeur - 1);
+					if (conv.flags.largeur > 0 && conv.flags.zero == 0)
+						compteur += print_space(conv.flags.largeur - 1);
+					compteur += ft_putchar('%');
+				}
 			}
-			if (s1[i] == '%')
-			{
-				if (conv.flags.largeur > 0 && conv.flags.zero == 1)
-					compteur += print_zero(conv.flags.largeur - 1);
-				if (conv.flags.largeur > 0 && conv.flags.zero == 0)
-					compteur += print_space(conv.flags.largeur - 1);
-				compteur += ft_putchar('%');
-			}
+			
 			if (s1[i] == ' ' && check_all_option(s1[i]) != 1)
 				i++;
 			else if (s1[i] == '\0')

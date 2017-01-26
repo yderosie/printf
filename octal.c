@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char *conv_octal(ull j)
+char	*conv_octal(ull j)
 {
 	ull		remainder;
 	char	*s1;
