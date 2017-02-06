@@ -39,9 +39,9 @@ typedef struct	s_flags
 	int		espace;
 	int		moins;
 	int		plus;
-	int		precision;
+	int		p;
 	int		point;
-	int		largeur;
+	int		lg;
 	int		fhh;
 	int		fh;
 	int		fl;
@@ -75,7 +75,7 @@ int		ft_putchar(char c);
 int		ft_putstr(char const *s);
 int		ft_putnstr(char const *s, size_t size);
 size_t	ft_strlen(char const *s);
-size_t	ft_strlen_for_wchar(wchar_t const *s);
+size_t	ft_strlen_w(wchar_t const *s);
 void	ft_bzero(void *s, size_t n);
 
 int		ft_atoi(char const *str);
@@ -84,6 +84,29 @@ char	*ft_inverse(char *s);
 char	**ft_strsplit(char const *s, char c);
 char	*ft_strcpy(char *dst, char const *src);
 int		ft_isdigit(int c);
+
+
+void			conv_s(t_conv *cv, unsigned int *count);
+void			conv_ss(t_conv *cv, unsigned int *count, int len);
+void			conv_c(t_conv *cv, unsigned int *count);
+void			conv_cc(t_conv *cv, unsigned int *count);
+
+
+void			conv_d(t_conv *cv, unsigned int *count, int sub_p);
+void			conv_dd(t_conv *cv, unsigned int *count, int sub_p);
+void			conv_u(t_conv *cv, unsigned int *count, int sub_p);
+void			conv_uu(t_conv *cv, unsigned int *count, int sub_p);
+
+
+void			conv_o(t_conv *cv, unsigned int *count, int sub_p);
+void			conv_oo(t_conv *cv, unsigned int *count, int sub_p);
+void			conv_x(t_conv *cv, unsigned int *count, int sub_p);
+void			conv_xx(t_conv *cv, unsigned int *count, int sub_p);
+
+
+void			conv_p(t_conv *cv, unsigned int *count);
+void			conv_pc(t_conv *cv, unsigned int *count);
+
 
 int				check_all_option(char c);
 int				check_conv(char c);
@@ -94,9 +117,9 @@ size_t			nb_octets_write(wchar_t c);
 int				print_space(int i);
 int				print_zero(int i);
 
-int				diff_for_precision(int precision, int len, int negatif);
-int				precision_for_s(wchar_t c, unsigned int ret, t_flags flags);
-int				diff_precision_s(wchar_t *s, t_flags flags);
+int				diff_p(int precision, int len, int negatif);
+int				len_cw(wchar_t c, unsigned int ret, t_flags flags);
+int				diff_sw(wchar_t *s, t_flags flags);
 
 size_t			binary_to_decimal(char *s);
 char			*binary(unsigned int j);
@@ -106,8 +129,8 @@ ll				diff_return(t_conv *conv);
 int				flags_present(t_conv *conv, char *s1, int i);
 char			*conv_octal(ull j);
 char			*conv_hexa(ull j);
-int				ft_nb_digit_u(ull i);
-int				ft_nb_digit(ll i);
+int				ft_nblen_u(ull i);
+int				ft_nblen(ll i);
 char			*conv_hexa_x(ull j);
 int				ft_putnbr_u(ull n);
 int				ft_putnbr(ll n);

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		ft_nb_digit_u(ull i)
+int		ft_nblen_u(ull i)
 {
 	int	j;
 
@@ -26,7 +26,7 @@ int		ft_nb_digit_u(ull i)
 	return (j);
 }
 
-int		ft_nb_digit(ll i)
+int		ft_nblen(ll i)
 {
 	int	j;
 	ll	k;

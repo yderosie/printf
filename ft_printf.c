@@ -37,31 +37,24 @@ int		ft_printf(char const *format, ...)
 	t_conv				conv;
 	char				*s2;
 	int					j;
-	int					k;
-	unsigned int		compteur;
-	int					sub_p;
-	int					sub_for_s;
-	int					len;
+	unsigned int		count;
 
 	i = 0;
-	sub_p = 0;
-	sub_for_s = 0;
-	compteur = 0;
+	count = 0;
 	s1 = (char *)format;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(format) + 1);
 	va_start(conv.arg.ap, format);
 	va_copy(conv.arg.save, conv.arg.ap);
 	while (s1[i] != '\0')
 	{
-		k = 0;
 		if (ft_strlen(s1) == 1 && s1[0] == '%')
-			return(0);
+			return (0);
 		j = 0;
 		ft_bzero(s2, ft_strlen(s2) + 1);
 		while (s1[i] != '%' && s1[i] != '\0')
 			s2[j++] = s1[i++];
 		s2[j] = '\0';
-		compteur += ft_putstr(s2);
+		count += ft_putstr(s2);
 		if (s1[i] == '%' && s1[i + 1] != '\0')
 		{
 			flags_initialization(&conv);
@@ -69,315 +62,55 @@ int		ft_printf(char const *format, ...)
 			if (check_conv(s1[i]) == 1)
 			{
 				if (s1[i] == 's' && conv.flags.fl == 0)
-				{
-					conv.s = va_arg(conv.arg.ap, char*);
-					if (conv.s != NULL)
-					{
-						if (conv.flags.point == 1 && conv.flags.precision < ft_strlen(conv.s))
-							sub_for_s = conv.flags.precision;
-						else
-							sub_for_s = ft_strlen(conv.s);
-						if (conv.flags.largeur > 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - sub_for_s);
-						if (conv.flags.largeur > 0 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - sub_for_s);
-						if (conv.flags.point == 1 && conv.flags.precision < ft_strlen(conv.s))
-							compteur += ft_putnstr(conv.s, conv.flags.precision);
-						else
-							compteur += ft_putstr(conv.s);
-					}
-					else if (conv.flags.zero == 1 && conv.flags.point == 1 && conv.s == NULL)
-						compteur += print_zero(conv.flags.largeur);
-					else
-						compteur += ft_putstr("(null)");
-				}
+					conv_s(&conv, &count);
 				if (s1[i] == 'S' || (s1[i] == 's' && conv.flags.fl == 1))
-				{					
-					len = 0;
-					conv.ss = va_arg(conv.arg.ap, wchar_t*);
-					if (conv.ss != NULL)
-					{
-						if (conv.flags.point == 1 && conv.flags.precision < ft_strlen_for_wchar(conv.ss))
-							sub_for_s = diff_precision_s(conv.ss, conv.flags);
-						else
-							sub_for_s = ft_strlen_for_wchar(conv.ss);
-						if (conv.flags.largeur > 0 && conv.flags.zero == 1 && conv.flags.moins == 0)
-							compteur += print_zero(conv.flags.largeur - sub_for_s);
-						if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 0)
-							compteur += print_space(conv.flags.largeur - sub_for_s);
-						while (conv.ss[k] != '\0')
-						{
-							if (conv.flags.point == 0)
-								len += nb_octets_write(conv.ss[k]);
-							else if (conv.flags.point == 1 && precision_for_s(conv.ss[k], len, conv.flags) <= conv.flags.precision)
-								len += nb_octets_write(conv.ss[k]);
-							k++;
-						}
-						compteur += len;
-						if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 1)
-							compteur += print_space(conv.flags.largeur - ft_strlen_for_wchar(conv.ss));
-					}
-					else
-						compteur += ft_putstr("(null)");
-				}
+					conv_ss(&conv, &count, 0);
 				if (s1[i] == 'd' || s1[i] == 'i')
-				{
-					conv.d = diff_return(&conv);
-					if (conv.d >= 0 && conv.flags.plus == 1)
-						compteur += ft_putchar('+');
-					if (conv.flags.point == 1)
-						sub_p = diff_for_precision(conv.flags.precision, ft_nb_digit(conv.d), ((conv.d < 0) ? 1 : 0));
-					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-						compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d) + sub_p));
-					if (conv.d >= 0 && conv.flags.espace == 1 && conv.flags.plus == 0)
-					{
-						compteur += ft_putchar(' ');
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d) + 1 + sub_p));
-					}
-					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1 && conv.flags.espace == 0)
-					{
-						if (conv.flags.plus == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d) + 1 + sub_p));
-						else if (conv.d < 0)
-						{
-							conv.d = conv.d * -1;
-							compteur += ft_putchar('-');
-							compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d) + 1 + sub_p));
-						}
-						else
-						{
-							if (conv.flags.point == 1)
-								compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d) + sub_p));
-							else
-								compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.d) + sub_p));
-						}
-					}
-					else if (conv.d < 0 && ft_nb_digit(conv.d) < conv.flags.precision)
-					{
-						conv.d = -conv.d;
-						compteur += ft_putchar('-');
-					}
-					compteur += print_zero(sub_p);
-					if (conv.flags.point == 1 && conv.flags.precision <= 0)
-						;
-					else
-						compteur += ft_putnbr(conv.d);
-					if (conv.flags.largeur > 0 && conv.flags.moins == 1)
-						compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.d) + sub_p));
-				}
+					conv_d(&conv, &count, 0);
 				if (s1[i] == 'D')
-				{
-					conv.dd = va_arg(conv.arg.ap, li);
-					if (conv.flags.point == 1)
-						sub_p = diff_for_precision(conv.flags.precision, ft_nb_digit(conv.dd), ((conv.dd < 0) ? 1 : 0));
-					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-						compteur += print_space(conv.flags.largeur - (ft_nb_digit(conv.dd) + sub_p));
-					if (conv.dd >= 0 && conv.flags.zero == 1)
-						compteur += print_zero(conv.flags.largeur - (ft_nb_digit(conv.dd) + sub_p));
-					if (conv.flags.precision > 0)
-						compteur += print_zero((ft_nb_digit(conv.dd) + sub_p));
-					compteur += ft_putnbr(conv.dd);
-				}
+					conv_dd(&conv, &count, 0);
 				if (s1[i] == 'c')
-				{
-					if (conv.d > 0 && conv.flags.fl == 1)
-					{
-						conv.cc = va_arg(conv.arg.ap, wint_t);
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.cc));
-						compteur += nb_octets_write(conv.cc);
-					}
-					else
-					{
-						conv.c = va_arg(conv.arg.ap, int);
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - ft_nb_digit(conv.c));
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - ft_nb_digit(conv.c));
-						compteur += ft_putchar(conv.c);
-					}	
-				}
+					conv_c(&conv, &count);
 				if (s1[i] == 'C')
-				{
-					conv.cc = va_arg(conv.arg.ap, wint_t);
-					compteur += nb_octets_write(conv.cc);
-				}
+					conv_cc(&conv, &count);
 				if (s1[i] == 'u')
-				{
-					conv.u = diff_u_return(&conv);
-					if (conv.flags.point == 1)
-					{
-						sub_p = diff_for_precision(conv.flags.precision, ft_nb_digit_u(conv.u), 0);
-						if (conv.flags.precision > 0)
-							compteur += print_space(conv.flags.largeur - (ft_nb_digit_u(conv.u) + sub_p));
-						compteur += print_zero(sub_p);
-					}
-					if (conv.flags.point == 1 && conv.flags.precision <= 0)
-						;
-					else
-						compteur += ft_putnbr_u(conv.u);
-				}
+					conv_u(&conv, &count, 0);
 				if (s1[i] == 'U')
-				{
-					conv.uu = va_arg(conv.arg.ap, uli);
-					if (conv.flags.point == 1)
-					{
-						sub_p = diff_for_precision(conv.flags.precision, ft_nb_digit_u(conv.uu), 0);
-						if (conv.flags.precision > 0)
-							compteur += print_space(conv.flags.largeur - (ft_nb_digit_u(conv.uu) + sub_p));
-						compteur += print_zero(sub_p);
-					}
-					if (conv.flags.point == 1 && conv.flags.precision <= 0)
-						;
-					else
-						compteur += ft_putnbr_u(conv.uu);
-				}
+					conv_uu(&conv, &count, 0);
 				if (s1[i] == 'o')
-				{
-					conv.o = conv_octal(diff_u_return(&conv));
-					if (ft_strlen(conv.o) > 1 && conv.flags.htag == 1 && conv.flags.precision == 0)
-						compteur += ft_putchar('0');
-					if (conv.flags.point == 1)
-					{
-						sub_p = diff_for_precision(conv.flags.precision, ft_strlen(conv.o), 0);
-						if (conv.flags.precision > 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv.o) + sub_p));
-						compteur += print_zero(sub_p);
-					}
-					if (conv.flags.point == 1 && conv.flags.precision <= 0 && conv.flags.htag == 0)
-						;
-					else
-						compteur += ft_putstr(conv.o);
-				}
+					conv_o(&conv, &count, 0);
 				if (s1[i] == 'O')
-				{
-					conv.oo = conv_octal(va_arg(conv.arg.ap, uli));
-					if (conv.flags.htag == 1)
-						compteur += ft_putchar('0');
-					if (conv.flags.point == 1)
-					{
-						sub_p = diff_for_precision(conv.flags.precision, ft_strlen(conv.oo), 0);
-						if (conv.flags.precision > 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv.oo) + sub_p));
-						compteur += print_zero(sub_p);
-					}
-					if (conv.flags.point == 1 && conv.flags.precision <= 0)
-						;
-					else
-						compteur += ft_putstr(conv.oo);
-				}
+					conv_oo(&conv, &count, 0);
 				if (s1[i] == 'x')
-				{
-					conv.x = diff_u_return(&conv);
-					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-					{
-						if (conv.x != 0 && conv.flags.htag == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa(conv.x)) + 2));
-						else
-							compteur += print_zero(conv.flags.largeur - ft_strlen(conv_hexa(conv.x)));
-					}
-					if (conv.x != 0 && conv.flags.htag == 1)
-						compteur += ft_putstr("0x");
-					if (conv.flags.point == 1)
-					{
-						sub_p = diff_for_precision(conv.flags.precision, ft_strlen(conv_hexa(conv.x)), 0);
-						if (conv.flags.precision > 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa(conv.x)) + sub_p));
-						compteur += print_zero(sub_p);
-					}
-					if (conv.flags.point == 1 && conv.flags.precision <= 0)
-						;
-					else
-						compteur += ft_putstr(conv_hexa(conv.x));
-				}
+					conv_x(&conv, &count, 0);
 				if (s1[i] == 'X')
-				{
-					conv.xx = diff_u_return(&conv);
-					if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-						compteur += print_zero(conv.flags.largeur - ft_strlen(conv_hexa_x(conv.xx)));
-					if (conv.xx != 0 && conv.flags.htag == 1)
-						compteur += ft_putstr("0X");
-					if (conv.flags.point == 1)
-					{
-						sub_p = diff_for_precision(conv.flags.precision, ft_strlen(conv_hexa_x(conv.xx)), 0);
-						if (conv.flags.precision > 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa_x(conv.xx)) + sub_p));
-						compteur += print_zero(sub_p);
-					}
-					if (conv.flags.point == 1 && conv.flags.precision <= 0)
-						;
-					else
-						compteur += ft_putstr(conv_hexa_x(conv.xx));
-				}
+					conv_xx(&conv, &count, 0);
 				if (s1[i] == 'p')
-				{
-					conv.p = va_arg(conv.arg.ap, void*);
-					if (conv.p == 0)
-					{
-
-						if (conv.flags.point == 1 && conv.flags.precision < 1)
-						{
-							compteur += ft_putstr("0x");
-						}
-						else
-						{
-							if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-								compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
-							compteur += ft_putstr("0x0");
-							if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-								compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
-							if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
-								compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
-							if (conv.flags.point == 1 && conv.flags.precision > 0)
-								compteur += print_zero(conv.flags.precision - ft_strlen(conv_hexa((ull)conv.p)));
-						}
-					}
-					else
-					{
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
-						compteur += ft_putstr("0x");
-						if (conv.flags.point == 1 && conv.flags.precision > 0)
-							compteur += print_zero(conv.flags.precision - ft_strlen(conv_hexa((ull)conv.p)));
-						if (conv.flags.largeur > 0 && conv.flags.moins == 0 && conv.flags.zero == 1)
-							compteur += print_zero(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
-						compteur += ft_putstr(conv_hexa((ull)conv.p));
-						if (conv.flags.largeur > 0 && conv.flags.moins == 1 && conv.flags.zero == 0)
-							compteur += print_space(conv.flags.largeur - (ft_strlen(conv_hexa((ull)conv.p)) + 2));
-					}
-				}
+					conv_p(&conv, &count);
 				if (s1[i] == '%')
-				{
-					if (conv.flags.largeur > 0 && conv.flags.zero == 1)
-						compteur += print_zero(conv.flags.largeur - 1);
-					if (conv.flags.largeur > 0 && conv.flags.zero == 0)
-						compteur += print_space(conv.flags.largeur - 1);
-					compteur += ft_putchar('%');
-				}
+					conv_pc(&conv, &count);
 			}
-			
 			if (s1[i] == ' ' && check_all_option(s1[i]) != 1)
 				i++;
 			else if (s1[i] == '\0')
 			{
 				ft_putchar('\n');
-				return (compteur);
+				return (count);
 			}
 			else if (check_all_option(s1[i]) == 0)
 			{
-				if (conv.flags.largeur > 0 && conv.flags.zero == 1)
-					compteur += print_zero(conv.flags.largeur - 1);
-				if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 0)
-					compteur += print_space(conv.flags.largeur - 1);
-				compteur += ft_putchar(s1[i]);
-				if (conv.flags.largeur > 0 && conv.flags.zero == 0 && conv.flags.moins == 1)
-					compteur += print_space(conv.flags.largeur - 1);
+				if (conv.flags.lg > 0 && conv.flags.zero == 1)
+					count += print_zero(conv.flags.lg - 1);
+				if (conv.flags.lg > 0 && conv.flags.zero == 0 && conv.flags.moins == 0)
+					count += print_space(conv.flags.lg - 1);
+				count += ft_putchar(s1[i]);
+				if (conv.flags.lg > 0 && conv.flags.zero == 0 && conv.flags.moins == 1)
+					count += print_space(conv.flags.lg - 1);
 				i++;
 			}
 			else
 				i++;
 		}
 	}
-	return (compteur);
+	return (count);
 }

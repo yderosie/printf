@@ -35,7 +35,11 @@ FILES = ft_printf \
 		check \
 		unicode \
 		precision \
-		print
+		print \
+		conv_for_d \
+		conv_for_ho \
+		conv_for_p \
+		conv_for_s
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJ = $(SRCS:%.c=obj/%.o)

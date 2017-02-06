@@ -20,8 +20,8 @@ void	flags_initialization(t_conv *conv)
 	conv->flags.moins = 0;
 	conv->flags.plus = 0;
 	conv->flags.point = 0;
-	conv->flags.precision = 0;
-	conv->flags.largeur = 0;
+	conv->flags.p = 0;
+	conv->flags.lg = 0;
 	conv->flags.fhh = 0;
 	conv->flags.fh = 0;
 	conv->flags.fl = 0;

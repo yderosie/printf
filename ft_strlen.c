@@ -22,7 +22,7 @@ size_t		ft_strlen(char const *s)
 	return (i);
 }
 
-size_t		ft_strlen_for_wchar(wchar_t const *s)
+size_t		ft_strlen_w(wchar_t const *s)
 {
 	size_t i;
 	size_t len;

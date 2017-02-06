@@ -62,7 +62,7 @@ size_t	nb_octets_write_2(unsigned int i)
 	return (tab_0(s1, s2));
 }
 
-size_t		nb_octets_write(wchar_t c)
+size_t	nb_octets_write(wchar_t c)
 {
 	unsigned int i;
 

@@ -50,7 +50,7 @@ int		parse_precision(t_conv *conv, char *s1, int i)
 	conv->flags.point = 1;
 	while (ft_isdigit(s1[i + ++j + 1]))
 		s2[j] = s1[i + j + 1];
-	conv->flags.precision = ft_atoi(s2);
+	conv->flags.p = ft_atoi(s2);
 	return (j);
 }
 
@@ -78,7 +78,7 @@ int		flags_present(t_conv *conv, char *s1, int i)
 		flags_present_2(conv, s1, i);
 		i++;
 	}
-	conv->flags.largeur = ft_atoi(s3);
+	conv->flags.lg = ft_atoi(s3);
 	return (i);
 }
 
