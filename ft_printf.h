@@ -86,10 +86,10 @@ char	*ft_strcpy(char *dst, char const *src);
 int		ft_isdigit(int c);
 
 
-void			conv_s(t_conv *cv, unsigned int *count);
+void			conv_s(t_conv *cv, unsigned int *count, int a);
 void			conv_ss(t_conv *cv, unsigned int *count, int len);
-void			conv_c(t_conv *cv, unsigned int *count);
-void			conv_cc(t_conv *cv, unsigned int *count);
+void			conv_c(t_conv *cv, unsigned int *count, int a);
+void			conv_cc(t_conv *cv, unsigned int *count, int a);
 
 
 void			conv_d(t_conv *cv, unsigned int *count, int sub_p);
@@ -104,8 +104,8 @@ void			conv_x(t_conv *cv, unsigned int *count, int sub_p);
 void			conv_xx(t_conv *cv, unsigned int *count, int sub_p);
 
 
-void			conv_p(t_conv *cv, unsigned int *count);
-void			conv_pc(t_conv *cv, unsigned int *count);
+void			conv_p(t_conv *cv, unsigned int *count, int a);
+void			conv_pc(t_conv *cv, unsigned int *count, int a);
 
 
 int				check_all_option(char c);

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	conv_p(t_conv *cv, unsigned int *count)
+void	conv_p(t_conv *cv, unsigned int *count, int a)
 {
 	cv->p = va_arg(cv->arg.ap, void*);
 	if (cv->flags.point == 1 && cv->flags.p < 1 && cv->p == 0)
@@ -40,7 +40,7 @@ void	conv_p(t_conv *cv, unsigned int *count)
 			(ft_strlen(conv_hexa((ull)cv->p)) + 2));
 }
 
-void	conv_pc(t_conv *cv, unsigned int *count)
+void	conv_pc(t_conv *cv, unsigned int *count, int a)
 {
 	if (cv->flags.lg > 0 && cv->flags.zero == 1)
 		*count += print_zero(cv->flags.lg - 1);

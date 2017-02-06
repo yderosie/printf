@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void		conv_s(t_conv *cv, unsigned int *count)
+void		conv_s(t_conv *cv, unsigned int *count, int a)
 {
 	int sub_for_s;
 
@@ -75,7 +75,7 @@ void		conv_ss(t_conv *cv, unsigned int *count, int len)
 		*count += print_space(cv->flags.lg - ft_strlen_w(cv->ss));
 }
 
-void		conv_c(t_conv *cv, unsigned int *count)
+void		conv_c(t_conv *cv, unsigned int *count, int a)
 {
 	if (cv->d > 0 && cv->flags.fl == 1)
 	{
@@ -95,7 +95,7 @@ void		conv_c(t_conv *cv, unsigned int *count)
 	}
 }
 
-void		conv_cc(t_conv *conv, unsigned int *count)
+void		conv_cc(t_conv *conv, unsigned int *count, int a)
 {
 	conv->cc = va_arg(conv->arg.ap, wint_t);
 	*count += nb_octets_write(conv->cc);

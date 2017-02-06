@@ -30,21 +30,26 @@ char	*ft_inverse(char *s)
 	return (s2);
 }
 
+/*void	setup(void **fct)
+{
+	ft_bzero(fct, 255);
+	fct['s'] = &conv_s;
+}
+
 void	parse_2(char c, t_conv *conv, unsigned int count)
 {
-	char	*s;
-	int		i;
+	static void	*fct[255];
+	static int init = 0;
 
-	i = -1;
-	conv = "sSpdDioOuUxXcC%";
-	while (conv[++i])
+	if (init == 0)
 	{
-		if (conv[i] == c)
-		{
-			
-		}
+		setup(fct);
+		init = 1;
 	}
-}
+	if (fct[c] != NULL)
+		fct[c](&conv, &count, 0);
+
+}*/
 
 int		ft_printf(char const *format, ...)
 {
@@ -77,19 +82,18 @@ int		ft_printf(char const *format, ...)
 			i += flags_present(&conv, s1 + i + 1, 0) + 1;
 			if (check_conv(s1[i]) == 1)
 			{
-
-				/*if (s1[i] == 's' && conv.flags.fl == 0)
-					conv_s(&conv, &count);
-				if (s1[i] == 'S' || (s1[i] == 's' && conv.flags.fl == 1))
+				if (s1[i] == 's' && conv.flags.fl == 0)
+					conv_s(&conv, &count, 0);
+				if (s1[i] == 'S')
 					conv_ss(&conv, &count, 0);
 				if (s1[i] == 'd' || s1[i] == 'i')
 					conv_d(&conv, &count, 0);
 				if (s1[i] == 'D')
 					conv_dd(&conv, &count, 0);
 				if (s1[i] == 'c')
-					conv_c(&conv, &count);
+					conv_c(&conv, &count, 0);
 				if (s1[i] == 'C')
-					conv_cc(&conv, &count);
+					conv_cc(&conv, &count, 0);
 				if (s1[i] == 'u')
 					conv_u(&conv, &count, 0);
 				if (s1[i] == 'U')
@@ -103,9 +107,9 @@ int		ft_printf(char const *format, ...)
 				if (s1[i] == 'X')
 					conv_xx(&conv, &count, 0);
 				if (s1[i] == 'p')
-					conv_p(&conv, &count);
+					conv_p(&conv, &count, 0);
 				if (s1[i] == '%')
-					conv_pc(&conv, &count);*/
+					conv_pc(&conv, &count, 0);
 			}
 			if (s1[i] == ' ' && check_all_option(s1[i]) != 1)
 				i++;
