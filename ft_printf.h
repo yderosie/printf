@@ -26,6 +26,8 @@ typedef unsigned long int		uli;	/* t_uli */
 typedef long long int			ll;		/* t_ll */
 typedef unsigned long long int	ull;	/* t_ull */
 
+
+
 typedef struct	s_arg
 {
 	va_list ap;
@@ -69,6 +71,8 @@ typedef struct	s_conv
 	t_arg			arg;
 	t_flags			flags;
 }				t_conv;
+
+typedef void			(*t_fct)(t_conv *conv, unsigned int *a, int b);
 
 int		ft_printf(char const *format, ...);
 int		ft_putchar(char c);

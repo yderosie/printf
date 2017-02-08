@@ -30,15 +30,29 @@ char	*ft_inverse(char *s)
 	return (s2);
 }
 
-/*void	setup(void **fct)
+void	setup(t_fct *fct)
 {
 	ft_bzero(fct, 255);
 	fct['s'] = &conv_s;
+	fct['S'] = &conv_ss;
+	fct['i'] = &conv_d;
+	fct['d'] = &conv_d;
+	fct['D'] = &conv_dd;
+	fct['u'] = &conv_u;
+	fct['U'] = &conv_uu;
+	fct['o'] = &conv_o;
+	fct['O'] = &conv_oo;
+	fct['x'] = &conv_x;
+	fct['X'] = &conv_xx;
+	fct['p'] = &conv_p;
+	fct['c'] = &conv_c;
+	fct['C'] = &conv_cc;
+	fct['%'] = &conv_pc;
 }
 
-void	parse_2(char c, t_conv *conv, unsigned int count)
+void	parse_2(char c, t_conv *conv, unsigned int *count)
 {
-	static void	*fct[255];
+	static t_fct fct[255];
 	static int init = 0;
 
 	if (init == 0)
@@ -47,9 +61,8 @@ void	parse_2(char c, t_conv *conv, unsigned int count)
 		init = 1;
 	}
 	if (fct[c] != NULL)
-		fct[c](&conv, &count, 0);
-
-}*/
+		fct[c](conv, count, 0);
+}
 
 int		ft_printf(char const *format, ...)
 {
@@ -82,7 +95,8 @@ int		ft_printf(char const *format, ...)
 			i += flags_present(&conv, s1 + i + 1, 0) + 1;
 			if (check_conv(s1[i]) == 1)
 			{
-				if (s1[i] == 's' && conv.flags.fl == 0)
+				parse_2(s1[i], &conv, &count);
+				/*if (s1[i] == 's' && conv.flags.fl == 0)
 					conv_s(&conv, &count, 0);
 				if (s1[i] == 'S')
 					conv_ss(&conv, &count, 0);
@@ -109,7 +123,7 @@ int		ft_printf(char const *format, ...)
 				if (s1[i] == 'p')
 					conv_p(&conv, &count, 0);
 				if (s1[i] == '%')
-					conv_pc(&conv, &count, 0);
+					conv_pc(&conv, &count, 0);*/
 			}
 			if (s1[i] == ' ' && check_all_option(s1[i]) != 1)
 				i++;
