@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-static char		*ft_nbr(ll n, ll *i)
+static char		*ft_nbr(t_ll n, t_ll *i)
 {
 	char	*s2;
-	ll		j;
-	ll		m;
-	ll		save;
+	t_ll	j;
+	t_ll	m;
+	t_ll	save;
 
 	save = (n < 0) ? -n : n;
 	j = save;
@@ -41,10 +41,10 @@ static char		*ft_nbr(ll n, ll *i)
 	return (s2);
 }
 
-char			*ft_itoa(ll n)
+char			*ft_itoa(t_ll n)
 {
-	ll		i;
-	ll		k;
+	t_ll	i;
+	t_ll	k;
 	char	*s1;
 	char	*s2;
 
@@ -65,12 +65,12 @@ char			*ft_itoa(ll n)
 	return (s1);
 }
 
-static char		*ft_nbr_u(ull n, ull *i)
+static char		*ft_nbr_u(t_ull n, t_ull *i)
 {
 	char	*s2;
-	ull		j;
-	ull		m;
-	ull		save;
+	t_ull	j;
+	t_ull	m;
+	t_ull	save;
 
 	save = n;
 	j = save;
@@ -94,10 +94,10 @@ static char		*ft_nbr_u(ull n, ull *i)
 	return (s2);
 }
 
-char			*ft_itoa_u(ull n)
+char			*ft_itoa_u(t_ull n)
 {
-	ull		i;
-	ull		k;
+	t_ull	i;
+	t_ull	k;
 	char	*s1;
 	char	*s2;
 

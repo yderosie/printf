@@ -16,6 +16,8 @@ void		conv_s(t_conv *cv, unsigned int *count, int a)
 {
 	int sub_for_s;
 
+	if (cv->flags.fl == 1)
+		return (conv_ss(cv, count, 0));
 	cv->s = va_arg(cv->arg.ap, char*);
 	if (cv->s != NULL)
 	{

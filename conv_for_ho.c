@@ -32,7 +32,7 @@ void	conv_o(t_conv *cv, unsigned int *count, int sub_p)
 
 void	conv_oo(t_conv *cv, unsigned int *count, int sub_p)
 {
-	cv->oo = conv_octal(va_arg(cv->arg.ap, uli));
+	cv->oo = conv_octal(va_arg(cv->arg.ap, t_uli));
 	if (cv->flags.htag == 1)
 		*count += ft_putchar('0');
 	if (cv->flags.point == 1)

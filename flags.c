@@ -82,16 +82,16 @@ int		flags_present(t_conv *conv, char *s1, int i)
 	return (i);
 }
 
-ll		diff_return(t_conv *conv)
+t_ll	diff_return(t_conv *conv)
 {
 	if (conv->flags.fhh == 1)
 		return ((char)va_arg(conv->arg.ap, int));
 	if (conv->flags.fh == 1)
 		return ((short)va_arg(conv->arg.ap, int));
 	if (conv->flags.fl == 1)
-		return (va_arg(conv->arg.ap, li));
+		return (va_arg(conv->arg.ap, t_li));
 	if (conv->flags.fll == 1)
-		return (va_arg(conv->arg.ap, ll));
+		return (va_arg(conv->arg.ap, t_ll));
 	if (conv->flags.j == 1)
 		return (va_arg(conv->arg.ap, intmax_t));
 	if (conv->flags.z == 1)
@@ -100,16 +100,16 @@ ll		diff_return(t_conv *conv)
 		return (va_arg(conv->arg.ap, int));
 }
 
-ull		diff_u_return(t_conv *conv)
+t_ull	diff_u_return(t_conv *conv)
 {
 	if (conv->flags.fhh == 1)
 		return ((unsigned char)va_arg(conv->arg.ap, unsigned int));
 	if (conv->flags.fh == 1)
 		return ((unsigned short)va_arg(conv->arg.ap, unsigned int));
 	if (conv->flags.fl == 1)
-		return (va_arg(conv->arg.ap, uli));
+		return (va_arg(conv->arg.ap, t_uli));
 	if (conv->flags.fll == 1)
-		return (va_arg(conv->arg.ap, ull));
+		return (va_arg(conv->arg.ap, t_ull));
 	if (conv->flags.j == 1)
 		return (va_arg(conv->arg.ap, uintmax_t));
 	if (conv->flags.z == 1)

@@ -67,7 +67,7 @@ void		conv_d(t_conv *cv, unsigned int *count, int sub_p)
 
 void		conv_dd(t_conv *cv, unsigned int *count, int sub_p)
 {
-	cv->dd = va_arg(cv->arg.ap, li);
+	cv->dd = va_arg(cv->arg.ap, t_li);
 	if (cv->flags.point == 1)
 		sub_p = diff_p(cv->flags.p, ft_nblen(cv->dd), ((cv->dd < 0) ? 1 : 0));
 	if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 0)
@@ -98,7 +98,7 @@ void		conv_u(t_conv *conv, unsigned int *count, int sub_p)
 
 void		conv_uu(t_conv *cv, unsigned int *count, int sub_p)
 {
-	cv->uu = va_arg(cv->arg.ap, uli);
+	cv->uu = va_arg(cv->arg.ap, t_uli);
 	if (cv->flags.point == 1)
 	{
 		sub_p = diff_p(cv->flags.p, ft_nblen_u(cv->uu), 0);

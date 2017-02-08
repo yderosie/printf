@@ -12,9 +12,28 @@
 
 #include "ft_printf.h"
 
-char	*conv_octal(ull j)
+char	*ft_inverse(char *s)
 {
-	ull		remainder;
+	int		i;
+	int		j;
+	char	*s2;
+
+	i = 0;
+	j = ft_strlen(s) - 1;
+	s2 = (char *)malloc(sizeof(char) * ft_strlen(s));
+	while (j >= 0)
+	{
+		s2[i] = s[j];
+		i++;
+		j--;
+	}
+	s2[i] = '\0';
+	return (s2);
+}
+
+char	*conv_octal(t_ull j)
+{
+	t_ull	remainder;
 	char	*s1;
 	int		i;
 

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		ft_putnbr(ll n)
+int		ft_putnbr(t_ll n)
 {
 	int rt;
 
@@ -39,7 +39,7 @@ int		ft_putnbr(ll n)
 	return (rt);
 }
 
-int		ft_putnbr_u(ull n)
+int		ft_putnbr_u(t_ull n)
 {
 	int rt;
 

@@ -48,11 +48,11 @@ static char		if_forest_hexa(unsigned int k)
 		return ('f');
 }
 
-char			*conv_hexa_x(ull j)
+char			*conv_hexa_x(t_ull j)
 {
 	char			*s1;
 	int				i;
-	ull				k;
+	t_ull			k;
 	char			*s2;
 
 	i = 0;
@@ -70,11 +70,11 @@ char			*conv_hexa_x(ull j)
 	return (s2);
 }
 
-char			*conv_hexa(ull j)
+char			*conv_hexa(t_ull j)
 {
 	char			*s1;
 	int				i;
-	ull				k;
+	t_ull			k;
 	char			*s2;
 
 	i = 0;
@@ -92,10 +92,10 @@ char			*conv_hexa(ull j)
 	return (s2);
 }
 
-unsigned int	count_c_hexa(ull i)
+unsigned int	count_c_hexa(t_ull i)
 {
-	ull		j;
-	ull		k;
+	t_ull	j;
+	t_ull	k;
 
 	j = 0;
 	while (j >= 16)

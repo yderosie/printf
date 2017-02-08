@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		ft_nblen_u(ull i)
+int		ft_nblen_u(t_ull i)
 {
 	int	j;
 
@@ -26,10 +26,10 @@ int		ft_nblen_u(ull i)
 	return (j);
 }
 
-int		ft_nblen(ll i)
+int		ft_nblen(t_ll i)
 {
-	int	j;
-	ll	k;
+	int		j;
+	t_ll	k;
 
 	j = 0;
 	k = i;
