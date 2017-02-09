@@ -44,7 +44,9 @@ void	conv_pc(t_conv *cv, unsigned int *count, int a)
 {
 	if (cv->flags.lg > 0 && cv->flags.zero == 1)
 		*count += print_zero(cv->flags.lg - 1);
-	if (cv->flags.lg > 0 && cv->flags.zero == 0)
+	if (cv->flags.lg > 0 && cv->flags.zero == 0 && cv->flags.moins == 0)
 		*count += print_space(cv->flags.lg - 1);
 	*count += ft_putchar('%');
+	if (cv->flags.lg > 0 && cv->flags.zero == 0 && cv->flags.moins == 1)
+		*count += print_space(cv->flags.lg - 1);
 }

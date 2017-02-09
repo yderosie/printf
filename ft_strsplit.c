@@ -6,7 +6,7 @@
 /*   By: yderosie <yderosie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/08 10:21:29 by yderosie          #+#    #+#             */
-/*   Updated: 2015/02/12 17:16:15 by yderosie         ###   ########.fr       */
+/*   Updated: 2017/02/09 16:03:42 by yderosie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static char		**ft_strsplit_2(char const *s, char c)
 		if (s1[i] != '\0')
 			k++;
 	}
-	s2[++k]='\0';
 	return (s2);
 }
 

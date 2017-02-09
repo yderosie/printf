@@ -25,14 +25,16 @@ void		conv_s(t_conv *cv, unsigned int *count, int a)
 			sub_for_s = cv->flags.p;
 		else
 			sub_for_s = ft_strlen(cv->s);
-		if (cv->flags.lg > 0 && cv->flags.zero == 1)
+		if (cv->flags.lg > 0 && cv->flags.zero == 1 && cv->flags.moins == 0)
 			*count += print_zero(cv->flags.lg - sub_for_s);
-		if (cv->flags.lg > 0 && cv->flags.zero == 0)
+		if (cv->flags.lg > 0 && cv->flags.zero == 0 && cv->flags.moins == 0)
 			*count += print_space(cv->flags.lg - sub_for_s);
 		if (cv->flags.point == 1 && cv->flags.p < ft_strlen(cv->s))
 			*count += ft_putnstr(cv->s, cv->flags.p);
 		else
 			*count += ft_putstr(cv->s);
+		if (cv->flags.lg > 0 && cv->flags.zero == 0 && cv->flags.moins == 1)
+			*count += print_space(cv->flags.lg - sub_for_s);
 	}
 	else if (cv->flags.zero == 1 && cv->flags.point == 1 && cv->s == NULL)
 		*count += print_zero(cv->flags.lg);
@@ -90,10 +92,12 @@ void		conv_c(t_conv *cv, unsigned int *count, int a)
 	{
 		cv->c = va_arg(cv->arg.ap, int);
 		if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 0)
-			*count += print_space(cv->flags.lg - ft_nblen(cv->c));
+			*count += print_space(cv->flags.lg - 1);
 		if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 1)
-			*count += print_zero(cv->flags.lg - ft_nblen(cv->c));
+			*count += print_zero(cv->flags.lg - 1);
 		*count += ft_putchar(cv->c);
+		if (cv->flags.lg > 0 && cv->flags.moins == 1 && cv->flags.zero == 0)
+			*count += print_space(cv->flags.lg - 1);
 	}
 }
 

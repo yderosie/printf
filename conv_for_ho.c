@@ -15,12 +15,21 @@
 void	conv_o(t_conv *cv, unsigned int *count, int sub_p)
 {
 	cv->o = conv_octal(diff_u_return(cv));
+	sub_p = diff_p(cv->flags.p, ft_strlen(cv->o), 0);
+	if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 0 && cv->flags.point == 0)
+	{
+		if (cv->flags.htag == 1)
+			*count += print_space(cv->flags.lg - (ft_strlen(cv->o) + 1 + sub_p));
+		else
+			*count += print_space(cv->flags.lg - (ft_strlen(cv->o) + sub_p));
+	}
+	if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 1 && cv->flags.point == 0)
+		*count += print_zero(cv->flags.lg - (ft_strlen(cv->o)));
 	if (ft_strlen(cv->o) > 1 && cv->flags.htag == 1 && cv->flags.p == 0)
 		*count += ft_putchar('0');
 	if (cv->flags.point == 1)
 	{
-		sub_p = diff_p(cv->flags.p, ft_strlen(cv->o), 0);
-		if (cv->flags.p > 0)
+		if (cv->flags.p > 0 && cv->flags.moins == 0)
 			*count += print_space(cv->flags.lg - (ft_strlen(cv->o) + sub_p));
 		*count += print_zero(sub_p);
 	}
@@ -28,6 +37,13 @@ void	conv_o(t_conv *cv, unsigned int *count, int sub_p)
 		;
 	else
 		*count += ft_putstr(cv->o);
+	if (cv->flags.lg > 0 && cv->flags.moins == 1)
+	{
+		if (cv->flags.htag == 1)
+			*count += print_space(cv->flags.lg - (ft_strlen(cv->o) + 1 + sub_p));
+		else
+			*count += print_space(cv->flags.lg - (ft_strlen(cv->o) + sub_p));
+	}
 }
 
 void	conv_oo(t_conv *cv, unsigned int *count, int sub_p)
@@ -52,6 +68,17 @@ void	conv_oo(t_conv *cv, unsigned int *count, int sub_p)
 void	conv_x(t_conv *cv, unsigned int *count, int sub_p)
 {
 	cv->x = diff_u_return(cv);
+	if (cv->flags.point == 1)
+		sub_p = diff_p(cv->flags.p, ft_strlen(conv_hexa(cv->x)), 0);
+	if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 0 && cv->flags.point == 0)
+	{
+		if (cv->flags.htag == 1)
+			*count += print_space(cv->flags.lg - (ft_strlen(conv_hexa(cv->x)) + 2));
+		else
+			*count += print_space(cv->flags.lg - ft_strlen(conv_hexa(cv->x)));
+	}
+	if (cv->x != 0 && cv->flags.htag == 1)
+		*count += ft_putstr("0x");
 	if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 1)
 	{
 		if (cv->x != 0 && cv->flags.htag == 1)
@@ -60,11 +87,8 @@ void	conv_x(t_conv *cv, unsigned int *count, int sub_p)
 		else
 			*count += print_zero(cv->flags.lg - ft_strlen(conv_hexa(cv->x)));
 	}
-	if (cv->x != 0 && cv->flags.htag == 1)
-		*count += ft_putstr("0x");
 	if (cv->flags.point == 1)
 	{
-		sub_p = diff_p(cv->flags.p, ft_strlen(conv_hexa(cv->x)), 0);
 		if (cv->flags.p > 0)
 			*count += print_space(cv->flags.lg -
 				(ft_strlen(conv_hexa(cv->x)) + sub_p));
@@ -74,6 +98,13 @@ void	conv_x(t_conv *cv, unsigned int *count, int sub_p)
 		;
 	else
 		*count += ft_putstr(conv_hexa(cv->x));
+	if (cv->flags.lg > 0 && cv->flags.moins == 1)
+	{
+		if (cv->flags.htag == 1)
+			*count += print_space(cv->flags.lg - (ft_strlen(conv_hexa(cv->x)) + 2));
+		else
+			*count += print_space(cv->flags.lg - ft_strlen(conv_hexa(cv->x)));
+	}
 }
 
 void	conv_xx(t_conv *cv, unsigned int *count, int sub_p)
