@@ -76,7 +76,7 @@ static void		print_s(unsigned int *count, int *i, char *s1)
 
 	j = 0;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
-	ft_bzero(s2, ft_strlen(s2) + 1);
+	ft_bzero(s2, ft_strlen(s1) + 1);
 	while (s1[*i] != '%' && s1[*i] != '\0')
 		s2[j++] = s1[(*i)++];
 	s2[j] = '\0';

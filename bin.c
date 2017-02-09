@@ -67,6 +67,7 @@ char			*binary(unsigned int j)
 
 	i = 0;
 	s1 = (char *)malloc(sizeof(char) * (count_c_bin(j)));
+	ft_bzero(s1, count_c_bin(j));
 	while (j >= 2)
 	{
 		k = j;

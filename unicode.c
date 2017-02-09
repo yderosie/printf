@@ -48,6 +48,7 @@ size_t	nb_octets_write_2(unsigned int i)
 	char	*s2;
 
 	s2 = (char*)malloc(sizeof(char) * 36);
+	ft_bzero(s2, 36);
 	tab[0] = "110xxxxx 10xxxxxx\0";
 	s2 = ft_strcpy(s2, tab[0]);
 	tab[1] = "1110xxxx 10xxxxxx 10xxxxxx\0";

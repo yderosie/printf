@@ -47,6 +47,7 @@ int		parse_precision(t_conv *conv, char *s1, int i)
 
 	j = -1;
 	s2 = (char *)malloc(sizeof(char) * ft_strlen(s1));
+	ft_bzero(s2, ft_strlen(s1));
 	conv->flags.point = 1;
 	while (ft_isdigit(s1[i + ++j + 1]))
 		s2[j] = s1[i + j + 1];

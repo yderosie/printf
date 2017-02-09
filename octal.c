@@ -20,7 +20,7 @@ char	*ft_inverse(char *s)
 
 	i = 0;
 	j = ft_strlen(s) - 1;
-	s2 = (char *)malloc(sizeof(char) * ft_strlen(s));
+	s2 = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
 	while (j >= 0)
 	{
 		s2[i] = s[j];
@@ -36,9 +36,11 @@ char	*conv_octal(t_ull j)
 	t_ull	remainder;
 	char	*s1;
 	int		i;
+	char	*s2;
 
 	i = 0;
 	s1 = (char *)malloc(sizeof(char) * 40);
+	ft_bzero(s1, 40);
 	s1[0] = '0';
 	while (j != 0)
 	{
@@ -49,6 +51,6 @@ char	*conv_octal(t_ull j)
 		else
 			s1[i++] = remainder + '0';
 	}
-	s1 = ft_inverse(s1);
-	return (s1);
+	s2 = ft_inverse(s1);
+	return (s2);
 }

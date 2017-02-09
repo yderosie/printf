@@ -40,6 +40,7 @@ static char		**ft_strsplit_2(char const *s, char c)
 	{
 		j = 0;
 		s2[k] = (char *)malloc(sizeof(char) * (ft_sizek(s1 + i, c) + 1));
+		ft_bzero(s2[k], ft_sizek(s1 + i, c) + 1);
 		while (s1[i] != c && s1[i] != '\0')
 			s2[k][j++] = s1[i++];
 		while (s1[i] && s1[i] == c)
@@ -47,6 +48,7 @@ static char		**ft_strsplit_2(char const *s, char c)
 		if (s1[i] != '\0')
 			k++;
 	}
+	s2[++k]='\0';
 	return (s2);
 }
 

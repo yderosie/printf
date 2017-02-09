@@ -12,11 +12,13 @@
 
 #include "ft_printf.h"
 
-static unsigned int	ft_traitement(char *s, unsigned int j)
+static unsigned int	ft_traitement(char *s)
 {
 	unsigned int	i;
+	unsigned int	j;
 
 	i = 0;
+	j = 0;
 	while (s[i] != '\0')
 	{
 		if (s[i] >= '0' && s[i] <= '9')
@@ -39,12 +41,10 @@ static unsigned int	ft_traitement(char *s, unsigned int j)
 int					ft_atoi(char const *str)
 {
 	char			*s;
-	unsigned int	i;
 	unsigned int	j;
 
-	i = 0;
 	j = 0;
 	s = (char*)str;
-	j = ft_traitement(s, i);
+	j = ft_traitement(s);
 	return (j);
 }

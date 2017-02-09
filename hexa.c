@@ -56,7 +56,8 @@ char			*conv_hexa_x(t_ull j)
 	char			*s2;
 
 	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j)));
+	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j) + 10));
+	ft_bzero(s1, count_c_hexa(j) + 10);
 	while (j >= 16)
 	{
 		k = j;
@@ -78,7 +79,8 @@ char			*conv_hexa(t_ull j)
 	char			*s2;
 
 	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j)));
+	s1 = (char *)malloc(sizeof(char) * count_c_hexa(j) + 10);
+	ft_bzero(s1, count_c_hexa(j) + 10);
 	while (j >= 16)
 	{
 		k = j;
@@ -89,6 +91,7 @@ char			*conv_hexa(t_ull j)
 	}
 	s1[i] = if_forest_hexa(j);
 	s2 = ft_inverse(s1);
+	free(s1);
 	return (s2);
 }
 

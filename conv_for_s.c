@@ -79,7 +79,7 @@ void		conv_ss(t_conv *cv, unsigned int *count, int len)
 
 void		conv_c(t_conv *cv, unsigned int *count, int a)
 {
-	if (cv->d > 0 && cv->flags.fl == 1)
+	if (cv->flags.fl == 1)
 	{
 		cv->cc = va_arg(cv->arg.ap, wint_t);
 		if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 0)
