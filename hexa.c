@@ -56,8 +56,8 @@ char			*conv_hexa_x(t_ull j)
 	char			*s2;
 
 	i = 0;
-	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j) + 10));
-	ft_bzero(s1, count_c_hexa(j) + 10);
+	s1 = (char *)malloc(sizeof(char) * (count_c_hexa(j)));
+	ft_bzero(s1, count_c_hexa(j));
 	while (j >= 16)
 	{
 		k = j;
@@ -79,8 +79,8 @@ char			*conv_hexa(t_ull j)
 	char			*s2;
 
 	i = 0;
-	s1 = (char *)malloc(sizeof(char) * count_c_hexa(j) + 10);
-	ft_bzero(s1, count_c_hexa(j) + 10);
+	s1 = (char *)malloc(sizeof(char) * count_c_hexa(j));
+	ft_bzero(s1, count_c_hexa(j));
 	while (j >= 16)
 	{
 		k = j;
@@ -101,7 +101,7 @@ unsigned int	count_c_hexa(t_ull i)
 	t_ull	k;
 
 	j = 0;
-	while (j >= 16)
+	while (i >= 16)
 	{
 		k = i;
 		i = i / 16;

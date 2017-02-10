@@ -41,6 +41,7 @@ typedef struct					s_flags
 	int		fll;
 	int		j;
 	int		z;
+	int		error;
 }								t_flags;
 
 typedef struct					s_conv

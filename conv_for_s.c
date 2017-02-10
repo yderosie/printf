@@ -12,7 +12,15 @@
 
 #include "ft_printf.h"
 
-void		conv_s(t_conv *cv, unsigned int *count, int a)
+static void		conv_s2(t_conv *cv, unsigned int *count, int sub_for_s)
+{
+	if (cv->flags.lg > 0 && cv->flags.zero == 1 && cv->flags.moins == 0)
+		*count += print_zero(cv->flags.lg - sub_for_s);
+	if (cv->flags.lg > 0 && cv->flags.zero == 0 && cv->flags.moins == 0)
+		*count += print_space(cv->flags.lg - sub_for_s);
+}
+
+void			conv_s(t_conv *cv, unsigned int *count, int a)
 {
 	int sub_for_s;
 
@@ -25,10 +33,7 @@ void		conv_s(t_conv *cv, unsigned int *count, int a)
 			sub_for_s = cv->flags.p;
 		else
 			sub_for_s = ft_strlen(cv->s);
-		if (cv->flags.lg > 0 && cv->flags.zero == 1 && cv->flags.moins == 0)
-			*count += print_zero(cv->flags.lg - sub_for_s);
-		if (cv->flags.lg > 0 && cv->flags.zero == 0 && cv->flags.moins == 0)
-			*count += print_space(cv->flags.lg - sub_for_s);
+		conv_s2(cv, count, sub_for_s);
 		if (cv->flags.point == 1 && cv->flags.p < ft_strlen(cv->s))
 			*count += ft_putnstr(cv->s, cv->flags.p);
 		else
@@ -42,7 +47,7 @@ void		conv_s(t_conv *cv, unsigned int *count, int a)
 		*count += ft_putstr("(null)");
 }
 
-static void	conv_ss_2(t_conv *cv, unsigned int *count, int sub_for_s)
+static void		conv_ss_2(t_conv *cv, unsigned int *count, int sub_for_s)
 {
 	if (cv->flags.point == 1 && cv->flags.p < ft_strlen_w(cv->ss))
 		sub_for_s = diff_sw(cv->ss, cv->flags);
@@ -54,7 +59,7 @@ static void	conv_ss_2(t_conv *cv, unsigned int *count, int sub_for_s)
 		*count += print_space(cv->flags.lg - sub_for_s);
 }
 
-void		conv_ss(t_conv *cv, unsigned int *count, int len)
+void			conv_ss(t_conv *cv, unsigned int *count, int len)
 {
 	int k;
 
@@ -77,32 +82,4 @@ void		conv_ss(t_conv *cv, unsigned int *count, int len)
 	*count += len;
 	if (cv->flags.lg > 0 && cv->flags.zero == 0 && cv->flags.moins == 1)
 		*count += print_space(cv->flags.lg - ft_strlen_w(cv->ss));
-}
-
-void		conv_c(t_conv *cv, unsigned int *count, int a)
-{
-	if (cv->flags.fl == 1)
-	{
-		cv->cc = va_arg(cv->arg.ap, wint_t);
-		if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 0)
-			*count += print_space(cv->flags.lg - ft_nblen(cv->cc));
-		*count += nb_octets_write(cv->cc);
-	}
-	else
-	{
-		cv->c = va_arg(cv->arg.ap, int);
-		if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 0)
-			*count += print_space(cv->flags.lg - 1);
-		if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 1)
-			*count += print_zero(cv->flags.lg - 1);
-		*count += ft_putchar(cv->c);
-		if (cv->flags.lg > 0 && cv->flags.moins == 1 && cv->flags.zero == 0)
-			*count += print_space(cv->flags.lg - 1);
-	}
-}
-
-void		conv_cc(t_conv *conv, unsigned int *count, int a)
-{
-	conv->cc = va_arg(conv->arg.ap, wint_t);
-	*count += nb_octets_write(conv->cc);
 }

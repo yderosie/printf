@@ -12,31 +12,31 @@
 
 #include "ft_printf.h"
 
-void	flags_present_2(t_conv *conv, char *s1, int i)
+void	flags_present_2(t_conv *conv, char *s1, int *i)
 {
-	if (s1[i] == 'h' && s1[i + 1] != 'h')
+	if (s1[*i] == 'h' && s1[*i + 1] != 'h')
 		conv->flags.fh = 1;
-	if (s1[i] == 'h' && s1[i + 1] == 'h')
+	if (s1[*i] == 'h' && s1[*i + 1] == 'h')
 	{
 		conv->flags.fhh = 1;
-		i += 1;
+		*i += 1;
 	}
-	if (s1[i] == 'l' && s1[i + 1] != 'l')
+	if (s1[*i] == 'l' && s1[*i + 1] != 'l')
 		conv->flags.fl = 1;
-	if (s1[i] == 'l' && s1[i + 1] == 'l')
+	if (s1[*i] == 'l' && s1[*i + 1] == 'l')
 	{
 		conv->flags.fll = 1;
-		i += 1;
+		*i += 1;
 	}
-	if (s1[i] == 'j')
+	if (s1[*i] == 'j')
 		conv->flags.j = 1;
-	if (s1[i] == '#')
+	if (s1[*i] == '#')
 		conv->flags.htag = 1;
-	if (s1[i] == '+')
+	if (s1[*i] == '+')
 		conv->flags.plus = 1;
 	if (s1[0] == ' ')
 		conv->flags.espace = 1;
-	if (s1[i] == 'z')
+	if (s1[*i] == 'z')
 		conv->flags.z = 1;
 }
 
@@ -76,10 +76,11 @@ int		flags_present(t_conv *conv, char *s1, int i)
 			s3[k++] = s1[i];
 		if (s1[i] == '-')
 			conv->flags.moins = 1;
-		flags_present_2(conv, s1, i);
+		flags_present_2(conv, s1, &i);
 		i++;
 	}
 	conv->flags.lg = ft_atoi(s3);
+	flags_error(conv);
 	return (i);
 }
 

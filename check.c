@@ -12,6 +12,13 @@
 
 #include "ft_printf.h"
 
+void	flags_error(t_conv *conv)
+{
+	if ((conv->flags.fhh + conv->flags.fh + conv->flags.fl + conv->flags.fll +
+		conv->flags.j + conv->flags.z) > 1)
+		conv->flags.error = 1;
+}
+
 void	flags_initialization(t_conv *conv)
 {
 	conv->flags.zero = 0;
@@ -28,6 +35,7 @@ void	flags_initialization(t_conv *conv)
 	conv->flags.fll = 0;
 	conv->flags.j = 0;
 	conv->flags.z = 0;
+	conv->flags.error = 0;
 }
 
 int		check_all_option(char c)

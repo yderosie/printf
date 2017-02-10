@@ -37,9 +37,12 @@ FILES = ft_printf \
 		precision \
 		print \
 		conv_for_d \
-		conv_for_ho \
 		conv_for_p \
-		conv_for_s
+		conv_for_s \
+		conv_for_u \
+		conv_for_x \
+		conv_for_c \
+		conv_for_o 
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJ = $(SRCS:%.c=obj/%.o)

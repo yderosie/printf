@@ -46,10 +46,12 @@ static void		parse_2(char c, t_conv *conv, unsigned int *count)
 		fct[c](conv, count, 0);
 }
 
-static void		parse(t_conv *cv, unsigned int *count, int *i, char *s1)
+static int		parse(t_conv *cv, unsigned int *count, int *i, char *s1)
 {
 	flags_initialization(cv);
 	*i += flags_present(cv, s1 + *i + 1, 0) + 1;
+	if (cv->flags.error == 1)
+		return (0);
 	if (check_conv(s1[*i]) == 1)
 		parse_2(s1[*i], cv, count);
 	if (s1[*i] == ' ' && check_all_option(s1[*i]) != 1)
@@ -67,6 +69,7 @@ static void		parse(t_conv *cv, unsigned int *count, int *i, char *s1)
 	}
 	else
 		(*i)++;
+	return (1);
 }
 
 static void		print_s(unsigned int *count, int *i, char *s1)
@@ -89,6 +92,7 @@ int				ft_printf(char const *format, ...)
 	int					i;
 	t_conv				conv;
 	unsigned int		count;
+	int					error;
 
 	i = 0;
 	count = 0;
@@ -101,7 +105,11 @@ int				ft_printf(char const *format, ...)
 			return (0);
 		print_s(&count, &i, s1);
 		if (s1[i] == '%' && s1[i + 1] != '\0')
-			parse(&conv, &count, &i, s1);
+			error = parse(&conv, &count, &i, s1);
+		else
+			return (count);
+		if (error == 0)
+			return (0);
 	}
 	return (count);
 }

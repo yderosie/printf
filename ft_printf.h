@@ -86,4 +86,6 @@ int				ft_putnbr_u(t_ull n);
 int				ft_putnbr(t_ll n);
 unsigned int	count_c_hexa(t_ull i);
 
+void			flags_error(t_conv *conv);
+
 #endif
