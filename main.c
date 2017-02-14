@@ -6,11 +6,11 @@
 /*   By: yderosie <yderosie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/20 23:04:41 by yderosie          #+#    #+#             */
-/*   Updated: 2015/02/17 16:34:26 by yderosie         ###   ########.fr       */
+/*   Updated: 2017/02/14 16:47:54 by yderosie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "printf/include/ft_printf.h"
 #include <stdio.h>
 #include <locale.h>
 
@@ -25,7 +25,7 @@ int main(void)
 //	s1 = "11111111       00000000 10101010";
 //	printf("%");
 //	printf("%d\n", ft_printf("{%010d}", -42));
-	ft_printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c \
+/*	ft_printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c \
 %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\
 %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",
 ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-',
@@ -34,10 +34,47 @@ int main(void)
 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e',
 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-'t', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}');
+'t', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}');*/
 //	ft_printf("{%0-3d}",0);
 //	printf("%d\n",ft_printf("{%15.4d}", 424242));
 //	ft_printf("%15.4d", -42);
+//	ft_printf("%-10s is a string\n", "this");
+//	ft_printf("%5c\n", 42);
+//	printf("%5c\n", 42);
+//	printf("%-10s is a string\n", "this");
+//	ft_printf("%-5.2s is a string\n", "this");
+//	printf("%-5.2s is a string\n", "this");
+
+	ft_printf("%0 d\n", 42);
+//	ft_printf("%-05%\n");
+//	printf("%-05%\n");
+//	ft_printf("% 10.5d\n", 4242);
+//	printf("% 10.5d\n", 4242);
+//	ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
+//	printf("@moulitest: %#.x %#.0x\n", 0, 0);
+//	ft_printf("%#-08x\n", 42);
+//	printf("%#-08x\n", 42);
+//	ft_printf("%#08x\n", 42);
+//	printf("%#08x\n", 42);
+
+//	ft_printf("%#8x\n", 42);
+// 	printf("%#8x\n", 42);
+
+//	ft_printf("%5.2x\n", 5427);
+//	printf("%5.2x\n", 5427);
+//	ft_printf("%-5o\n", 2500);
+//	printf("%-5o\n", 2500);
+//	ft_printf("%05o\n", 42);
+//	printf("%05o\n", 42);
+//	ft_printf("%5o\n", 41);
+//	printf("%5o\n", 41);
+//	ft_printf("%-5c\n", 42);
+//	printf("%-5c\n", 42);
+
+//	ft_printf("%-15x\n", 542);
+//	printf("%-15x\n", 542);
+//	ft_printf("%-5%");
+//	printf("%-5%");
 //	ft_printf("%.4u", 42);
 //	ft_printf("%+03d", 0);
 //	ft_printf("%4.15x", 42424242);
