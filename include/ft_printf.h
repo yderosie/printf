@@ -68,7 +68,7 @@ int				print_space(int i);
 int				print_zero(int i);
 
 int				diff_p(int precision, int len, int negatif);
-int				len_cw(wchar_t c, unsigned int ret, t_flags flags);
+int				len_cw(wchar_t c, unsigned int ret);
 int				diff_sw(wchar_t *s, t_flags flags);
 
 size_t			binary_to_decimal(char *s);

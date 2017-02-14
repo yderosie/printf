@@ -11,64 +11,70 @@
 # **************************************************************************** #
 
 NAME = libftprintf.a
-CC = gcc
-CFLAGS = 
-#-Wall -Wextra -Werror
+CC=gcc
 
-FILES = ft_printf \
-		ft_atoi \
-		ft_bzero \
-		ft_isdigit \
-		ft_itoa \
-		ft_nb_digit \
-		ft_putchar \
-		ft_putnbr \
-		ft_putstr \
-		ft_putwchar \
-		ft_strcpy \
-		ft_strlen \
-		ft_strsplit \
-		flags \
-		bin \
-		hexa \
-		octal \
-		check \
-		unicode \
-		precision \
-		print \
-		conv_for_d \
-		conv_for_p \
-		conv_for_s \
-		conv_for_u \
-		conv_for_x \
-		conv_for_c \
-		conv_for_o 
+CFLAGS += -Wall -Wextra -Werror
 
-SRCS = $(addsuffix .c, $(FILES))
-OBJ = $(SRCS:%.c=obj/%.o)
+SRCS =	src/ft_printf.c			\
+		src/bin.c				\
+		src/check.c				\
+		src/conv_for_c.c		\
+		src/conv_for_d.c		\
+		src/conv_for_o.c		\
+		src/conv_for_p.c		\
+		src/conv_for_s.c		\
+		src/conv_for_u.c		\
+		src/conv_for_x.c		\
+		src/flags.c				\
+		src/ft_atoi.c			\
+		src/ft_bzero.c			\
+		src/ft_isdigit.c		\
+		src/ft_itoa.c			\
+		src/ft_nb_digit.c		\
+		src/ft_putchar.c		\
+		src/ft_putnbr.c			\
+		src/ft_putstr.c			\
+		src/ft_putwchar.c		\
+		src/ft_strcpy.c			\
+		src/ft_strsplit.c		\
+		src/ft_strlen.c			\
+		src/hexa.c				\
+		src/octal.c				\
+		src/precision.c			\
+		src/print.c				\
+		src/unicode.c
 
-.PHONY: all clean fclean re
-.SILENT: dirobj clean fclean re all $(NAME)
+INC_FILES = include/ft_printf.h		\
+			include/struct.h
 
-all: dirobj $(NAME)
 
-$(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+C_INCLUDE_PATH += include/
 
-obj/%.o: %.c
-	$(CC) $(CFLAGS) -I./ -o $@ -c $^
+CFLAGS += $(foreach d, $(C_INCLUDE_PATH), -I$d)
+
+OBJS = $(patsubst src/%.c,obj/%.o,$(SRCS))
+
+CP = cp
+
+RM = rm -f
+
+all: $(NAME)
+
+MKDIR ?= mkdir
+
+obj/%.o: src/%.c $(INC_FILES)
+	$(MKDIR) -p $(dir $@)
+	$(CC) -c $(CFLAGS) $< -o $@
+
+$(NAME): $(OBJS)
+	ar rc $(NAME) $^
+
 
 clean:
-	test ! -d obj || \
-		rm -rf obj
+	$(RM) $(OBJS)
 
 fclean: clean
-	test ! -f $(NAME) || \
-		rm -f $(NAME)
+	$(RM) $(NAME)
+	$(RM) -rf obj
 
 re: fclean all
-
-dirobj:
-	test -d obj || \
-		mkdir -p obj

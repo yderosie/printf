@@ -22,7 +22,7 @@ int		diff_p(int precision, int len, int negatif)
 	return (ret);
 }
 
-int		len_cw(wchar_t c, unsigned int ret, t_flags flags)
+int		len_cw(wchar_t c, unsigned int ret)
 {
 	if (c <= 0x7F)
 		ret += 1;
@@ -42,16 +42,16 @@ int		diff_sw(wchar_t *s, t_flags flags)
 
 	len = 0;
 	i = 1;
-	if (len_cw(s[0], len, flags) <= flags.p)
+	if (len_cw(s[0], len) <= flags.p)
 	{
-		len = len_cw(s[0], len, flags);
+		len = len_cw(s[0], len);
 		while (s[i] != '\0' && len <= flags.p)
 		{
-			len = len_cw(s[i++], len, flags);
+			len = len_cw(s[i++], len);
 		}
 		if (len > flags.p)
 		{
-			len = len - len_cw(s[i - 1], 0, flags);
+			len = len - len_cw(s[i - 1], 0);
 			return (flags.p + (len - flags.p));
 		}
 	}

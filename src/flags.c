@@ -16,27 +16,27 @@ void	flags_present_2(t_conv *conv, char *s1, int *i)
 {
 	if (s1[*i] == 'h' && s1[*i + 1] != 'h')
 		conv->flags.fh = 1;
-	if (s1[*i] == 'h' && s1[*i + 1] == 'h')
+	else if (s1[*i] == 'h' && s1[*i + 1] == 'h')
 	{
 		conv->flags.fhh = 1;
 		*i += 1;
 	}
-	if (s1[*i] == 'l' && s1[*i + 1] != 'l')
+	else if (s1[*i] == 'l' && s1[*i + 1] != 'l')
 		conv->flags.fl = 1;
-	if (s1[*i] == 'l' && s1[*i + 1] == 'l')
+	else if (s1[*i] == 'l' && s1[*i + 1] == 'l')
 	{
 		conv->flags.fll = 1;
 		*i += 1;
 	}
-	if (s1[*i] == 'j')
+	else if (s1[*i] == 'j')
 		conv->flags.j = 1;
-	if (s1[*i] == '#')
+	else if (s1[*i] == '#')
 		conv->flags.htag = 1;
-	if (s1[*i] == '+')
+	else if (s1[*i] == '+')
 		conv->flags.plus = 1;
-	if (s1[0] == ' ')
+	else if (s1[*i] == ' ')
 		conv->flags.espace = 1;
-	if (s1[*i] == 'z')
+	else if (s1[*i] == 'z')
 		conv->flags.z = 1;
 }
 

@@ -42,15 +42,15 @@ static void		parse_2(char c, t_conv *conv, unsigned int *count)
 		setup(fct);
 		init = 1;
 	}
-	if (fct[c] != NULL)
-		fct[c](conv, count, 0);
+	if (fct[(int)c] != NULL)
+		fct[(int)c](conv, count, 0);
 }
 
 static int		parse(t_conv *cv, unsigned int *count, int *i, char *s1)
 {
 	flags_initialization(cv);
 	*i += flags_present(cv, s1 + *i + 1, 0) + 1;
-	if (cv->flags.error == 1)
+	if (cv->flags.error == 1 || s1[*i] == '\0')
 		return (0);
 	if (check_conv(s1[*i]) == 1)
 		parse_2(s1[*i], cv, count);

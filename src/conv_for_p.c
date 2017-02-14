@@ -14,6 +14,7 @@
 
 void	conv_p(t_conv *cv, unsigned int *count, int a)
 {
+	(void)a;
 	cv->p = va_arg(cv->arg.ap, void*);
 	if (cv->flags.point == 1 && cv->flags.p < 1 && cv->p == 0)
 	{
@@ -42,6 +43,7 @@ void	conv_p(t_conv *cv, unsigned int *count, int a)
 
 void	conv_pc(t_conv *cv, unsigned int *count, int a)
 {
+	(void)a;
 	if (cv->flags.lg > 0 && cv->flags.zero == 1 && cv->flags.moins == 0)
 		*count += print_zero(cv->flags.lg - 1);
 	if (cv->flags.lg > 0 && cv->flags.zero == 0 && cv->flags.moins == 0)

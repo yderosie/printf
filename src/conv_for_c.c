@@ -14,6 +14,7 @@
 
 void		conv_c(t_conv *cv, unsigned int *count, int a)
 {
+	(void)a;
 	if (cv->flags.fl == 1)
 	{
 		cv->cc = va_arg(cv->arg.ap, wint_t);
@@ -36,6 +37,7 @@ void		conv_c(t_conv *cv, unsigned int *count, int a)
 
 void		conv_cc(t_conv *conv, unsigned int *count, int a)
 {
+	(void)a;
 	conv->cc = va_arg(conv->arg.ap, wint_t);
 	*count += nb_octets_write(conv->cc);
 }

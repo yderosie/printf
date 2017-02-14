@@ -14,15 +14,15 @@
 
 static void	conv_d_3(t_conv *cv, unsigned int *count, int sub_p)
 {
+	(void)sub_p;
 	if (cv->d >= 0 && cv->flags.plus == 1)
 		*count += ft_putchar('+');
 	if (cv->d >= 0 && cv->flags.espace == 1 && cv->flags.plus == 0)
 	{
 		*count += ft_putchar(' ');
-		if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 1)
-		{
+		if (cv->flags.lg > 0 && cv->flags.moins == 0 && cv->flags.zero == 1
+			&& cv->flags.point == 0)
 			*count += print_zero(cv->flags.lg - (ft_nblen(cv->d) + 1 + sub_p));
-		}
 	}
 }
 
@@ -62,7 +62,7 @@ void		conv_d(t_conv *cv, unsigned int *count, int sub_p)
 	cv->d = diff_return(cv);
 	if (cv->flags.point == 1)
 		sub_p = diff_p(cv->flags.p, ft_nblen(cv->d), ((cv->d < 0) ? 1 : 0));
-	if (cv->flags.plus == 1)
+	if (cv->flags.plus == 1 && cv->d >= 0)
 		plus += 1;
 	if (cv->flags.espace == 1)
 		plus += 1;
